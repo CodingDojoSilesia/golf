@@ -1,0 +1,57 @@
+body {
+    font-family: Monospace;
+    background-color: #252D76;
+    font-size: 9pt;
+    color: #C2C3CC;
+}
+textarea {
+    font-size: 8pt;
+    font-family: Monospace;
+    background: none;
+    color: white;
+    border: #32A5E5 1px solid;
+}
+h1, h2, h3, h4 { color: white; }
+strong { color: white; }
+a { color: #ed4036; }
+.terminal {
+    font-size: 10pt;
+    width: 100%;
+    max-height: 400px;
+    color: white;
+    background-color: black;
+    border: #32A5E5 1px solid;
+    overflow: auto;
+}
+
+.color-30 { color: #000000; }
+.color-34 { color: #2c3480; }
+.color-94 { color: #1b75ba; }
+.color-96 { color: #25a9df; }
+.color-31 { color: #ac1e24; }
+.color-91 { color: #ed4036; }
+
+.pis { width: 400px; float: left;}
+.sld { width: 650px; float: left;}
+
+.success { color: #3AA655; font-weight: bold; }
+.error { color: #ed4036; font-weight: bold; }
+table {
+    font-size: 11pt;
+    width: 100%;
+}
+table caption { color: white; font-weight: bold; font-size: 14pt; }
+td.score { text-align: right; }
+th.index { width: 20px; }
+input[type="text"], select, option {
+    font-family: Monospace;
+    border: #32A5E5 1px solid;
+    background-color: #12195E;
+    color: white;
+}
+input[type="submit"] {
+    font-family: Monospace;
+    border: black;
+    background-color: white;
+    color: black;
+}

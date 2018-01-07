@@ -1,0 +1,24 @@
+version: '3'
+services:
+  app:
+    build: .
+    restart: always
+    read_only: true
+    ports:
+     - "80:5000"
+    environment:
+     - FLASK_APP=app.py
+     - FLASK_DB=postgresql://golf:socek@db/golf
+    stop_signal: SIGINT
+    deploy:
+      resources:
+        limits:
+          memory: 200M
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=socek
+      - POSTGRES_USER=golf
+      - POSTGRES_DB=golf
+

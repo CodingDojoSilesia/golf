@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <title>CC Code Golf 2018#1</title>
+        <link rel="stylesheet" type="text/css" href="stats/css.css" />
+    </head>
+    <body>
+        <h1>CC Code Golf 2018#1</h1>
+        <div class='sld'>
+            Howto? <a href="/howto">click here</a> <br />
+            <form method="POST">
+                Select language
+                <select name="lang">
+                    {% for key, lang_name in langs %}
+                    <option value="{{key}}" {% if key == lang %}selected{% endif %}>{{ lang_name }}</option>
+                    {% endfor %}
+                </select> 
+                Nick <input type='text' name='nick' value='{{ nick }}' />
+                <input type='submit' value='Submit' />
+                <br/>
+                <span>Code ↓↓↓</span> <br/>
+                <textarea name="code" rows="60" cols="100">{{ code }}</textarea>
+            </form>
+        </div>
+        <div class='pis'>
+            {% if is_done %}
+                <span class="success"> Good Job! </span> <br />
+            {% endif %}
+            {% if err %}
+                <span class="error">Error!</span> <br />
+                <span>stdout:</span> <br />
+                <div class="terminal">
+                    {% autoescape false %}
+                    {% for line in diff %}
+                    <span>{{ line }}</span> <br />
+                    {% endfor %}
+                    {% endautoescape %}
+                </div> <br />
+                {% if error_output %}
+                    <span>stderr:</span> <br />
+                    <div class="terminal">
+                        {% autoescape false %}
+                        {% for line in error_output %}
+                            <span>{{ line }}</span> <br />
+                        {% endfor %}
+                        {% endautoescape %}
+                    </div> <br />
+                {% endif %}
+            {% else %}
+                <h2>HIGHSCORE</h2>
+                {% for lang, heroes in scores %}
+                    <table>
+                        <caption>{{ lang }}</caption>
+                        {% for hero in heroes %}
+                        <tr>
+                            <th class='index'>{{ loop.index }}</th>
+                            <td>{{ hero.nick }}</td>
+                            <td class="score">{{ hero.score }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                {% endfor %}
+            {% endif %}
+        </div>
+        </form>
+    </body>
+</html>
