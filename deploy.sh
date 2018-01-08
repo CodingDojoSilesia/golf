@@ -1,5 +1,5 @@
 docker build . -t cc_golf_app
-docker stop cc_golf_db cc_golf_app_uwsgi
+docker restart cc_golf_app_uwsgi
 docker run \
     --name cc_golf_db \
     --env-file .env -d \
@@ -8,17 +8,19 @@ docker run \
 docker run \
     --name cc_golf_app_install \
     --rm -it --env-file .env \
-    --link cc_golf_db \
+    --link cc_golf_db:db \
     cc_golf_app python3 install.py
 docker run \
     --name cc_golf_app_uwsgi \
-    --rm -dit --env-file .env \
+    -dit --env-file .env \
     -p 80:5000 \
-    --tmpfs /code \
     --memory 256m \
+    --memory-swappiness 0 \
+    --kernel-memory 300m \
     --cpus .5 \
+    --cpu-shares 512 \
     --restart unless-stopped \
-    --privileged --cap-add=NET_ADMIN \
-    --link db \
-    cc_golf_app \
-
+    --cap-add=NET_ADMIN \
+    --ulimit nproc=64 \
+    --link cc_golf_db:db \
+    cc_golf_app
