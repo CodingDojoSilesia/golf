@@ -11,7 +11,7 @@ docker run \
     --link cc_golf_db:db \
     cc_golf_app python3 install.py
 docker run \
-    --name cc_golf_app_uwsgi \
+    --name cc_golf_app \
     -dit --env-file .env \
     -p 80:5000 \
     --memory 256m \
@@ -21,6 +21,7 @@ docker run \
     --cpu-shares 512 \
     --restart unless-stopped \
     --cap-add=NET_ADMIN \
-    --ulimit nproc=64 \
+    --ulimit nproc=80 \
+    --pids-limit 64 \
     --link cc_golf_db:db \
     cc_golf_app
