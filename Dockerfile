@@ -7,7 +7,10 @@ COPY requirements.txt .
 RUN pip3 install -r requirements.txt
 COPY code /code
 
+#security
 RUN chmod 600 -R /code
+RUN apk del gcc 
+
 WORKDIR /code
 
 ENV FLASK_APP=app.py
