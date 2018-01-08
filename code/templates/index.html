@@ -27,14 +27,16 @@
             {% endif %}
             {% if err %}
                 <span class="error">Error!</span> <br />
-                <span>stdout:</span> <br />
-                <div class="terminal">
-                    {% autoescape false %}
-                    {% for line in diff %}
-                    <span>{{ line }}</span> <br />
-                    {% endfor %}
-                    {% endautoescape %}
-                </div> <br />
+                {% if diff %}
+                    <span>stdout:</span> <br />
+                    <div class="terminal">
+                        {% autoescape false %}
+                        {% for line in diff %}
+                        <span>{{ line }}</span> <br />
+                        {% endfor %}
+                        {% endautoescape %}
+                    </div> <br />
+                {% endif %}
                 {% if error_output %}
                     <span>stderr:</span> <br />
                     <div class="terminal">
