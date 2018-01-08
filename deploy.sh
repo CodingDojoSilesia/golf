@@ -1,6 +1,5 @@
 docker build . -t cc_golf_app
-docker restart cc_golf_app_uwsgi
-docker run \
+[ ! "$(docker ps -a | grep cc_golf_db)" ] && docker run \
     --name cc_golf_db \
     --env-file .env -d \
     --restart unless-stopped \
@@ -10,6 +9,9 @@ docker run \
     --rm -it --env-file .env \
     --link cc_golf_db:db \
     cc_golf_app python3 install.py
+
+docker stop cc_golf_app
+docker rm cc_golf_app
 docker run \
     --name cc_golf_app \
     -dit --env-file .env \
@@ -25,3 +27,4 @@ docker run \
     --pids-limit 64 \
     --link cc_golf_db:db \
     cc_golf_app
+
