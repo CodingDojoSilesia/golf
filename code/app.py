@@ -17,7 +17,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
 LANGUAGES = {
-    'js': ['node', '--'],
+    'js': ['node', '-'],
     'python': ['python3', '-'],
     'php': ['php5', '--'],
 }
