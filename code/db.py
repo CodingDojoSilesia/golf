@@ -9,7 +9,7 @@ class Hero(db.Model):
     __tablename__ = 'heroes'
     __table_args__ = (Index('nick', 'lang'),)
 
-    nick = Column(String, primary_key=True)
+    nick = Column(String)
     lang = Column(String)
     score = Column(Integer)
 
