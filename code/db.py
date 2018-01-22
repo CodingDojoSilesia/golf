@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Index
+from sqlalchemy import Column, Integer, String, UniqueConstraint, Index
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -7,7 +7,11 @@ db = SQLAlchemy()
 
 class Hero(db.Model):
     __tablename__ = 'heroes'
-    __table_args__ = (Index('nick', 'lang'),)
+    __table_args__ = (
+        UniqueConstraint('nick', 'lang', name='hero_key'),
+        Index('nick', name='hero_nick_key'),
+        Index('lang', name='hero_lang_key'),
+    )
 
     nick = Column(String)
     lang = Column(String)
