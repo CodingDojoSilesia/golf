@@ -9,8 +9,8 @@ class Hero(db.Model):
     __tablename__ = 'heroes'
     __table_args__ = (
         UniqueConstraint('nick', 'lang', name='hero_key'),
-        Index('nick', name='hero_nick_key'),
-        Index('lang', name='hero_lang_key'),
+        Index('hero_nick_key', 'nick'),
+        Index('hero_lang_key', 'lang'),
     )
 
     nick = Column(String)
