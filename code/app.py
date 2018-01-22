@@ -53,16 +53,16 @@ def render_index(**kwargs):
     return render_template(
         'index.html',
         langs=SITE_LANGUAGES,
-        scores=(
+        scores=[
             (lang, get_scores_by_lang(key))
             for key, lang in SITE_LANGUAGES
-        ),
+        ],
         **kwargs
     )
 
 
 def get_scores_by_lang(lang):
-    scores = (
+    scores = list(
         Hero.query
         .filter_by(lang=lang)
         .order_by(Hero.score)
@@ -95,7 +95,7 @@ def execute_order_66():
     cmd = LANGUAGES.get(lang)
 
     if cmd is None:
-        return 400, ''
+        return '', 400
 
     try:
         execute_cmd(code, cmd)
