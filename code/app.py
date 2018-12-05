@@ -2,6 +2,7 @@ from flask import request, Flask, render_template, send_from_directory
 from subprocess import Popen, PIPE, TimeoutExpired
 from itertools import product
 from difflib import unified_diff
+from random import sample
 
 import os
 
@@ -132,8 +133,13 @@ def submit_score(nick, lang, code):
 
 
 def execute_cmd(code, cmd):
-    for args in product(range(1, 5), repeat=4):
-        assert_call(cmd, code, args)
+    ww = sample(range(18, 50, 2), 4)
+    hh = sample(range(14, 50, 2), 4)
+
+    for text in ['for you!', 'xxx',  'x' * 50]:
+        for width in ww:
+            for height in hh:
+                assert_call(cmd, code, (text, width, height))
 
 
 def decode_output(output):
