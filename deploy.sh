@@ -1,9 +1,13 @@
 docker build . -t cc_golf_app
-[ ! "$(docker ps -a | grep cc_golf_db)" ] && docker run \
-    --name cc_golf_db \
-    --env-file .env -d \
-    --restart unless-stopped \
-    postgres
+if [ ! "$(docker ps -a | grep cc_golf_db)" ] ; then
+    docker volume create pgdata
+    docker run \
+        --name cc_golf_db \
+        --env-file .env -d \
+        --volume pgdata:/var/lib/postgresql/data
+        --restart unless-stopped \
+        postgres
+fi
 docker run \
     --name cc_golf_app_install \
     --rm -it --env-file .env \
@@ -15,7 +19,7 @@ docker rm cc_golf_app
 docker run \
     --name cc_golf_app \
     -dit --env-file .env \
-    -p 80:5000 \
+    -p 5111:5000 \
     --memory 256m \
     --memory-swappiness 0 \
     --kernel-memory 300m \
