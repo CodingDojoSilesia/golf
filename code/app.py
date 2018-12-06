@@ -21,12 +21,14 @@ LANGUAGES = {
     'js': ['node', '-'],
     'python': ['python3', '-'],
     'php': ['php5', '--'],
+    'ruby': ['ruby', '-'],
 }
 
 SITE_LANGUAGES = [
-    ('python', 'Python'),
+    ('python', 'Python3'),
+    ('ruby', 'Ruby'),
     ('js', 'Javascript'),
-    ('php', 'PHP'),
+    ('php', 'PHP5'),
 ]
 
 
@@ -151,6 +153,18 @@ def preexec_fn():
 
 def assert_call(cmd_args, code, args):
     cmd_args = cmd_args + [str(arg) for arg in args]
+    # broken nsjail support :/
+    #cmd_args = [
+    #    'nsjail', 
+    #    '-M', 'o',
+    #    '--user', '4242',
+    #    '--group', '4242',
+    #    '--cgroup_cpu_ms_per_sec', '100',
+    #    '--cgroup_pids_max', '64',
+    #    '--cgroup_mem_max', '67108864',
+    #    '--disable_clone_newcgroup',
+    #    '--',
+    #] + cmd_args
     correct = do_it(*args)
 
     process = None

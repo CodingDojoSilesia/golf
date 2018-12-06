@@ -5,7 +5,7 @@ import re
 
 def change_match(match):
     a, b = match.groups()
-    return f'<span class="color-{a}">{b}</span>'
+    return '<span class="color-{}">{}</span>'.format(a, b)
 
 
 def unix_color_to_html(line):
@@ -16,5 +16,5 @@ def unix_color_to_html(line):
 
 
 def unixnify(filename):
-    with open(filename) as f:
-        return [unix_color_to_html(line) for line in f.readlines()]
+    with open(filename, 'rb') as f:
+        return [unix_color_to_html(line.decode('UTF-8')) for line in f.readlines()]
