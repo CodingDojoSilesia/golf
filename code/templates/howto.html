@@ -18,38 +18,35 @@
         <h2>Rules</h2>
         <ol>
             <li>Result must be printed in <strong>STDOUT</strong></li>
-            <li>Program gets 4 positive integers from arguments (argv)</li>
-            <li>Valid chars are space, newline char (\n) and █</li>
-            <li><strong>Each</strong> char (space too) have a color 
-                (more info <a href="https://misc.flogisoft.com/bash/tip_colors_and_formatting">here</a>) </li>
-            <li>Colors of char are: {{ terminal(colors) }}</li>
+            <li>Program gets 3 arguments (argv) in order: text, width (int) and height (int)</li>
+            <li>Text argument is not blank</li>
+            <li>Text has always one line (without newline character)</li>
+            <li>Minimum width of box is 18 chars</li>
+            <li>Minimum height (with bow too) of box is 14 lines</li>
+            <li>Width and height are always even</li>
             <li><strong>Each</strong> line must have newline char (\n) on the end</li>
-            <li><strong>Each</strong> line must have exactly width as other lines (right empty side must be filled with spaces)</li>
+            <li><strong>Each</strong> line doesn't have additional blank chars on the end</li>
         </ol>
         <h2>Examples</h2>
         <p>
-            Task are simple - write the shortest program who will be draw a CC logo in ASCII art
+            Task are simple - write the code to draw gift box with text
+            (ASCII art is from <a href='https://asciiart.website/index.php?art=holiday/christmas/other'>https://asciiart.website/index.php?art=holiday/christmas/other</a>
             {{ terminal(help1) }}
         </p>
         <p>
-            For ease of use, in examples char █ will be replaced as # and space will be replaced as dot (.)
-            {{ terminal(help2) }}
+            First argument is a text
+            {{ terminal(help_text1) }}
+            {{ terminal(help_text2) }}
         </p>
         <p>
-            First argument is a width of image
-            {{ terminal(help3) }}
+            Second argument is a width of gift box
+            {{ terminal(help_width1) }}
+            {{ terminal(help_width2) }}
         </p>
         <p>
-            Second argument is a height of top part
-            {{ terminal(help4) }}
-        </p>
-        <p>
-            Third argument is a height of middle part
-            {{ terminal(help5) }}
-        </p>
-        <p>
-            Fourth argument is a height of bottom part
-            {{ terminal(help6) }}
+            Third argument is a height of gift box
+            {{ terminal(help_height1) }}
+            {{ terminal(help_height2) }}
         </p>
     </body>
 </html>

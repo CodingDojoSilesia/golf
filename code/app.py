@@ -31,13 +31,13 @@ SITE_LANGUAGES = [
 
 
 OUTPUTS = dict(
-    colors=unixnify("howto/colors"),
     help1=unixnify("howto/help1"),
-    help2=unixnify("howto/help2"),
-    help3=unixnify("howto/help3"),
-    help4=unixnify("howto/help4"),
-    help5=unixnify("howto/help5"),
-    help6=unixnify("howto/help6"),
+    help_text1=unixnify("howto/help_text1"),
+    help_text2=unixnify("howto/help_text2"),
+    help_width1=unixnify("howto/help_width1"),
+    help_width2=unixnify("howto/help_width2"),
+    help_height1=unixnify("howto/help_height1"),
+    help_height2=unixnify("howto/help_height2"),
 )
 
 
