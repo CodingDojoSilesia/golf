@@ -48,19 +48,17 @@
                     </div> <br />
                 {% endif %}
             {% else %}
-                <h2>HIGHSCORE</h2>
-                {% for lang, heroes in scores %}
-                    <table>
-                        <caption>{{ lang }}</caption>
-                        {% for hero in heroes %}
-                        <tr>
-                            <th class='index'>{{ loop.index }}</th>
-                            <td>{{ hero.nick }}</td>
-                            <td class="score">{{ hero.score }}</td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                {% endfor %}
+                <table>
+                    <caption>HIGHSCORE</caption>
+                    {% for hero in heroes %}
+                    <tr>
+                        <th class='index'>{{ loop.index }}</th>
+                        <td>{{ hero.nick }}</td>
+                        <th>{{ hero.lang }}</th>
+                        <td class="score">{{ hero.score }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
             {% endif %}
         </div>
         </form>

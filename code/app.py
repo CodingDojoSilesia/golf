@@ -54,23 +54,19 @@ def render_index(**kwargs):
     return render_template(
         'index.html',
         langs=SITE_LANGUAGES,
-        scores=[
-            (lang, get_scores_by_lang(key))
-            for key, lang in SITE_LANGUAGES
-        ],
+        heroes=get_heroes(),
         **kwargs
     )
 
 
-def get_scores_by_lang(lang):
+def get_heroes():
     scores = list(
         Hero.query
-        .filter_by(lang=lang)
         .order_by(Hero.score)
-        .limit(5)
+        .limit(15)
         .all()
     )
-    return scores + [Hero('-', lang)] * (5 - len(scores))
+    return scores + [Hero('-', '-')] * (15 - len(scores))
 
 
 @app.route('/stats/<path:path>')
