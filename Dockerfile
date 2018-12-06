@@ -5,13 +5,13 @@ RUN adduser socek -u 4242 -g 4242 -D -H
 
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt
-COPY code /code
 
 #security
-RUN chmod 600 -R /code
 RUN apk del gcc 
 
+ENV FLASK_APP=app.py
+COPY code /code
+RUN chmod 600 -R /code
 WORKDIR /code
 
-ENV FLASK_APP=app.py
 CMD /bin/sh uwsgi_me.sh

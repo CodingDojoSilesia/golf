@@ -5,7 +5,7 @@ services:
     restart: always
     read_only: true
     ports:
-     - "80:5000"
+     - "5111:5000"
     environment:
      - FLASK_APP=app.py
      - FLASK_DB=postgresql://golf:socek@db/golf
@@ -21,4 +21,8 @@ services:
       - POSTGRES_PASSWORD=socek
       - POSTGRES_USER=golf
       - POSTGRES_DB=golf
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
+volumes:
+    pgdata:
