@@ -1,13 +1,11 @@
 set -e
 docker build . -t cc_golf_app
 if [ ! "$(docker ps -a | grep cc_golf_db)" ] ; then
-    set +e
-    docker volume create cc_golf_pgdata
-    set -e
+    echo 'make container with postgres'
     docker run \
         --name cc_golf_db \
         --env-file .env -d \
-        --volume cc_golf_pgdata:/var/lib/postgresql/data \
+	--volume "$(pwd)/pgdata":/var/lib/postgresql/data \
         --restart unless-stopped \
         postgres
 fi
