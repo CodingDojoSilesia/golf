@@ -10,6 +10,7 @@ services:
      - FLASK_APP=app.py
      - FLASK_DB=postgresql://golf:socek@db/golf
     stop_signal: SIGINT
+    privileged: true
   db:
     image: postgres
     restart: always

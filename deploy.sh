@@ -27,15 +27,7 @@ docker run \
     --name cc_golf_app \
     -dit --env-file .env \
     -p 5111:5000 \
-    --memory 256m \
-    --memory-swappiness 0 \
-    --kernel-memory 300m \
-    --cpus .5 \
-    --cpu-shares 512 \
-    --restart unless-stopped \
-    --cap-add=NET_ADMIN \
-    --ulimit nproc=80 \
-    --pids-limit 64 \
     --link cc_golf_db:db \
+    --privileged \
     cc_golf_app
 

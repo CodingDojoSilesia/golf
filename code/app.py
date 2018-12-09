@@ -3,6 +3,7 @@ from subprocess import Popen, PIPE, TimeoutExpired
 from itertools import product
 from difflib import unified_diff
 from random import sample
+from itertools import product
 
 import os
 
@@ -17,16 +18,35 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
+
+def make_arguments():
+    ww = sample(range(18, 100, 2), 4)
+    hh = sample(range(14, 100, 2), 4)
+    texts = [
+        'for you!', 'xxx',  'x' * 30, 'y' * 30,
+        'coding-dojo-silesia' * 5, '---___---',
+        '(╯°□°╯) ┻━┻', '┻━┻ \(`Д´)/ ┻━┻',
+        'for firemark!', 'aaa',  ' ' * 30, '...' * 10,
+    ]
+    tt = sample(texts, 4)
+
+    return product(tt, ww, hh)
+
+
+CHECK_FUNC = do_it
+
 LANGUAGES = {
-    'js': ['node', '-'],
-    'python': ['python3', '-'],
-    'php': ['php5', '--'],
-    'ruby': ['ruby', '-'],
+    'js': ['/usr/bin/node', '-'],
+    'python': ['/usr/bin/python3', '-'],
+    'php': ['/usr/bin/php5', '--'],
+    'ruby': ['/usr/bin/ruby', '-'],
+    'bash': ['/bin/bash', '-s', '--'],
 }
 
 SITE_LANGUAGES = [
     ('python', 'Python3'),
     ('ruby', 'Ruby'),
+    ('bash', 'Bash'),
     ('js', 'Javascript'),
     ('php', 'PHP5'),
 ]
@@ -131,13 +151,9 @@ def submit_score(nick, lang, code):
 
 
 def execute_cmd(code, cmd):
-    ww = sample(range(18, 50, 2), 4)
-    hh = sample(range(14, 50, 2), 4)
-
-    for text in ['for you!', 'xxx',  'x' * 50]:
-        for width in ww:
-            for height in hh:
-                assert_call(cmd, code, (text, width, height))
+    args_list = make_arguments()
+    for args in args_list:
+        assert_call(cmd, code, args)
 
 
 def decode_output(output):
@@ -146,26 +162,25 @@ def decode_output(output):
     return output.decode('utf-8', errors='replace')
 
 
-def preexec_fn():
-    os.setgid(4242)
-    os.setuid(4242)
-
-
 def assert_call(cmd_args, code, args):
     cmd_args = cmd_args + [str(arg) for arg in args]
-    # broken nsjail support :/
-    #cmd_args = [
-    #    'nsjail', 
-    #    '-M', 'o',
-    #    '--user', '4242',
-    #    '--group', '4242',
-    #    '--cgroup_cpu_ms_per_sec', '100',
-    #    '--cgroup_pids_max', '64',
-    #    '--cgroup_mem_max', '67108864',
-    #    '--disable_clone_newcgroup',
-    #    '--',
-    #] + cmd_args
-    correct = do_it(*args)
+    cmd_args = [
+        'nsjail',
+        '-Mo',
+        '--user', '4242',
+        '--group', '4242',
+        '--chroot', '/',
+        '--cgroup_cpu_ms_per_sec', '100',
+        '--cgroup_pids_max', '64',
+        '--cgroup_mem_max', '67108864',
+        '--rlimit_as=max',
+        '--disable_clone_newcgroup',
+        '--disable_proc',
+        '--iface_no_lo',
+        '-Q',
+        '--',
+    ] + cmd_args
+    correct = CHECK_FUNC(*args)
 
     process = None
     try:
@@ -173,7 +188,6 @@ def assert_call(cmd_args, code, args):
             args=cmd_args,
             stdin=PIPE, stdout=PIPE, stderr=PIPE,
             env={'PYTHONIOENCODING': 'UTF-8'},
-            preexec_fn=preexec_fn,
         )
         output, err_output = process.communicate(code.encode(), timeout=2)
     except TimeoutExpired as exp:
