@@ -35,6 +35,14 @@ a { color: #D82C31; }
 .pis { width: 400px; float: left;}
 .sld { width: 650px; float: left;}
 
+@media screen and (min-width: 1300px; max-width: 1500px) {
+    .pis { width: 650px; }
+}
+
+@media screen and (min-width: 1500px) {
+    .pis { width: 850px; }
+}
+
 .success { color: #3AA655; font-weight: bold; }
 .error { color: #ed4036; font-weight: bold; }
 table {
