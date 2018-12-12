@@ -38,7 +38,7 @@ CHECK_FUNC = do_it
 LANGUAGES = {
     'js': ['/usr/bin/node', '-'],
     'python': ['/usr/bin/python3', '-'],
-    'php': ['/usr/bin/php5', '--'],
+    'php': ['/usr/bin/php', '--'],
     'ruby': ['/usr/bin/ruby', '-'],
     'bash': ['/bin/bash', '-s', '--'],
 }
@@ -48,7 +48,7 @@ SITE_LANGUAGES = [
     ('ruby', 'Ruby'),
     ('bash', 'Bash'),
     ('js', 'Javascript'),
-    ('php', 'PHP5'),
+    ('php', 'PHP7'),
 ]
 
 

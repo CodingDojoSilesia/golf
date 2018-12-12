@@ -3,7 +3,7 @@ FROM alpine:3.7
 RUN adduser socek -u 4242 -g 4242 -D -H
 RUN apk update && apk add --no-cache \
         python3 python3-dev nodejs \
-        php5 py3-psycopg2 gcc \
+        php7 py3-psycopg2 gcc \
         ruby ruby-dev \
         bash \
         musl-dev linux-headers iptables
