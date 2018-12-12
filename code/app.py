@@ -18,6 +18,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
+TOP_HIDE_SCORES = int(os.environ.get('TOP_HIDE_SCORES', '2'))
+
 
 def make_arguments():
     ww = sample(range(18, 100, 2), 4)
@@ -88,6 +90,8 @@ def get_heroes():
         .limit(15)
         .all()
     )
+    for hero in scores[0:TOP_HIDE_SCORES]:
+        hero.score = '???'
     return scores + [Hero('-', '-')] * (15 - len(scores))
 
 
