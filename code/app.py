@@ -112,7 +112,7 @@ def readme_dude():
 
 @app.route('/', methods=['POST'])
 def execute_order_66():
-    code = request.form.get('code', '')
+    code = request.form.get('code', '').replace('\r\n', '\n')
     lang = request.form.get('lang', '')
     nick = request.form.get('nick', '')
     cmd = LANGUAGES.get(lang)
