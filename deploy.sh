@@ -5,7 +5,7 @@ if [ ! "$(docker ps -a | grep cc_golf_db)" ] ; then
     docker run \
         --name cc_golf_db \
         --env-file .env -d \
-	--volume "$(pwd)/pgdata":/var/lib/postgresql/data \
+        --volume "$(pwd)/pgdata":/var/lib/postgresql/data \
         --restart unless-stopped \
         postgres
 fi

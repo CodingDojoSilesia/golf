@@ -4,6 +4,7 @@ from itertools import product
 from difflib import unified_diff
 from random import sample
 from itertools import product
+from logging import getLogger()
 
 import os
 
@@ -11,6 +12,7 @@ from unix_colors import unix_color_to_html, unixnify
 from cc import do_it
 from db import db, Hero
 
+logger = getLogger('app')
 app = Flask('cc-golf')
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('FLASK_DB', 'not-found')
@@ -147,9 +149,16 @@ def submit_score(nick, lang, code):
     hero = Hero.query.filter_by(nick=nick, lang=lang).first()
     score = len(code)
     if hero is None:
+        old_score = '-'
         hero = Hero(nick, lang, score)
     else:
-        hero.score = min(hero.score, score)
+        old_score = hero.score
+        hero.score = min(old_score, score)
+
+    logger.info(
+        'New Record[%r, %s] from %s to %s',
+        nick, lang, old_score, score,
+    )
 
     db.session.add(hero)
     db.session.commit()
