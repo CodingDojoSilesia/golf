@@ -4,15 +4,20 @@ from itertools import product
 from difflib import unified_diff
 from random import sample
 from itertools import product
-from logging import getLogger
 
 import os
+import logging
 
 from unix_colors import unix_color_to_html, unixnify
 from cc import do_it
 from db import db, Hero
 
-logger = getLogger('app')
+logger = logging.getLogger('app')
+logger.setLevel(logging.INFO)
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+logger.addHandler(ch)
+
 app = Flask('cc-golf')
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('FLASK_DB', 'not-found')
