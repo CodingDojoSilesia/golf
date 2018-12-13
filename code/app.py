@@ -19,6 +19,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
 TOP_HIDE_SCORES = int(os.environ.get('TOP_HIDE_SCORES', '2'))
+TIMEOUT = int(os.environ.get('TIMEOUT', '2'))
 
 
 def make_arguments():
@@ -193,7 +194,7 @@ def assert_call(cmd_args, code, args):
             stdin=PIPE, stdout=PIPE, stderr=PIPE,
             env={'PYTHONIOENCODING': 'UTF-8'},
         )
-        output, err_output = process.communicate(code.encode(), timeout=2)
+        output, err_output = process.communicate(code.encode(), timeout=TIMEOUT)
     except TimeoutExpired as exp:
         raise CallError(err='timeout :(', args=args)
     except Exception as exp:
