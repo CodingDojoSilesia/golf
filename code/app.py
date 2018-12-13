@@ -4,7 +4,7 @@ from itertools import product
 from difflib import unified_diff
 from random import sample
 from itertools import product
-from logging import getLogger()
+from logging import getLogger
 
 import os
 
