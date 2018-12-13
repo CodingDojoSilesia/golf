@@ -139,12 +139,13 @@ def execute_order_66():
             tofile='args: {}'.format(exp.args),
         ))
         err_lines = err.error.splitlines(True)
+        logger.warning('Fail[%r, %s]: args: %r', nick, lang, exp.args)
         return render_index(
             code=code, lang=lang, nick=nick, is_done=False,
             err=err,
             diff=[unix_color_to_html(line) for line in diff],
             error_output=[unix_color_to_html(line) for line in err_lines],
-        )
+        ), 400
 
     submit_score(nick, lang, code)
     return render_index(code=code, lang=lang, nick=nick, is_done=True)
