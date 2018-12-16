@@ -194,7 +194,8 @@ def assert_call(cmd_args, code, args):
         '--user', '4242',
         '--group', '4242',
         '--chroot', '/',
-        '--cgroup_cpu_ms_per_sec', '100',
+        # with this flag, nodejs is VERY VERY SLOW OMG
+        #'--cgroup_cpu_ms_per_sec', '100',
         '--cgroup_pids_max', '64',
         '--cgroup_mem_max', '67108864',
         '--rlimit_as=max',
