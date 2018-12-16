@@ -14,7 +14,7 @@
                     <option value="{{key}}" {% if key == lang %}selected{% endif %}>{{ lang_name }}</option>
                     {% endfor %}
                 </select> 
-                Nick <input type='text' name='nick' value='{{ nick }}' />
+                Nick <input type='text' name='nick' minlength=1 maxlength=10 value='{{ nick }}' />
                 <input type='submit' value='Submit' />
                 <br/>
                 <span>Code ↓↓↓</span> <br/>
@@ -23,7 +23,7 @@
         </div>
         <div class='pis'>
             {% if is_done %}
-                <span class="success"> Good Job! </span> <br />
+                <span class="success">Good Job!</span> <br />
             {% endif %}
             {% if err %}
                 <span class="error">Error!</span> <br />

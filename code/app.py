@@ -123,10 +123,13 @@ def readme_dude():
 def execute_order_66():
     code = request.form.get('code', '').replace('\r\n', '\n')
     lang = request.form.get('lang', '')
-    nick = request.form.get('nick', '')
+    nick = request.form.get('nick', '').strip()
     cmd = LANGUAGES.get(lang)
 
     if cmd is None:
+        return '', 400
+
+    if len(nick) not in range(1, 10):
         return '', 400
 
     t0 = time()
@@ -156,7 +159,7 @@ def execute_order_66():
 
 
 def submit_score(nick, lang, code, seconds=0.0):
-    hero = Hero.query.filter_by(nick=nick, lang=lang).first()
+    hero = Hero.query.filter_by(nick=nick).first()
     score = len(code)
     if hero is None:
         old_score = '-'
