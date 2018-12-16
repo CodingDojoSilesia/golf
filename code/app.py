@@ -4,6 +4,7 @@ from itertools import product
 from difflib import unified_diff
 from random import sample
 from itertools import product
+from time import time
 
 import os
 import logging
@@ -128,9 +129,11 @@ def execute_order_66():
     if cmd is None:
         return '', 400
 
+    t0 = time()
     try:
         execute_cmd(code, cmd)
     except CallError as exp:
+        diff_time = time() - t0
         err = exp
         diff = list(unified_diff(
             err.wrong.splitlines(True),
@@ -139,7 +142,7 @@ def execute_order_66():
             tofile='args: {}'.format(exp.args),
         ))
         err_lines = err.error.splitlines(True)
-        logger.warning('Fail[%r, %s]: args: %r', nick, lang, exp.args)
+        logger.warning('Fail[%r, %s] in %0.2f seconds, args: %r', nick, lang, diff_time, exp.args)
         return render_index(
             code=code, lang=lang, nick=nick, is_done=False,
             err=err,
@@ -147,11 +150,12 @@ def execute_order_66():
             error_output=[unix_color_to_html(line) for line in err_lines],
         ), 400
 
-    submit_score(nick, lang, code)
+    diff_time = time() - t0
+    submit_score(nick, lang, code, diff_time)
     return render_index(code=code, lang=lang, nick=nick, is_done=True)
 
 
-def submit_score(nick, lang, code):
+def submit_score(nick, lang, code, seconds=0.0):
     hero = Hero.query.filter_by(nick=nick, lang=lang).first()
     score = len(code)
     if hero is None:
@@ -162,8 +166,8 @@ def submit_score(nick, lang, code):
         hero.score = min(old_score, score)
 
     logger.info(
-        'New Record[%r, %s] from %s to %s',
-        nick, lang, old_score, score,
+        'New Record[%r, %s] in %0.2f seconds, from %s to %s',
+        nick, lang, seconds, old_score, score,
     )
 
     db.session.add(hero)
@@ -209,10 +213,11 @@ def assert_call(cmd_args, code, args):
             stdin=PIPE, stdout=PIPE, stderr=PIPE,
             env={'PYTHONIOENCODING': 'UTF-8'},
         )
-        output, err_output = process.communicate(code.encode(), timeout=TIMEOUT)
+        output, err_output = process.communicate(code.encode('utf-8'), timeout=TIMEOUT)
     except TimeoutExpired as exp:
         raise CallError(err='timeout :(', args=args)
     except Exception as exp:
+        logger.exception('!!!')
         raise CallError(err='something is wrong: %s' % exp, args=args)
     finally:
         if process is not None:

@@ -28,7 +28,7 @@ RUN apk del gcc g++
 
 ENV FLASK_APP=app.py
 COPY code /code
-RUN chmod 600 -R /code
+RUN chmod 600 /code && chmod 600 -R /code
 WORKDIR /code
 
 CMD /bin/sh uwsgi_me.sh
