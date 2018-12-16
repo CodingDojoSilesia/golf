@@ -15,9 +15,14 @@ from db import db, Hero
 
 logger = logging.getLogger('app')
 logger.setLevel(logging.INFO)
-ch = logging.StreamHandler()
-ch.setLevel(logging.INFO)
-logger.addHandler(ch)
+handler = logging.StreamHandler()
+handler.setLevel(logging.INFO)
+formatter = logging.Formatter(
+    fmt='APP :: %(asctime)s %(levelname)-8s %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S',
+)
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
 app = Flask('cc-golf')
 
