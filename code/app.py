@@ -129,7 +129,7 @@ def execute_order_66():
     if cmd is None:
         return '', 400
 
-    if len(nick) not in range(1, 10):
+    if len(nick) not in range(1, 10 + 1):
         return '', 400
 
     t0 = time()

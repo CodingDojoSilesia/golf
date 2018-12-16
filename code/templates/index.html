@@ -14,7 +14,7 @@
                     <option value="{{key}}" {% if key == lang %}selected{% endif %}>{{ lang_name }}</option>
                     {% endfor %}
                 </select> 
-                Nick <input type='text' name='nick' minlength=1 maxlength=10 value='{{ nick }}' />
+                Nick <input type='text' name='nick' required maxlength=10 value='{{ nick }}' />
                 <input type='submit' value='Submit' />
                 <br/>
                 <span>Code ↓↓↓</span> <br/>
