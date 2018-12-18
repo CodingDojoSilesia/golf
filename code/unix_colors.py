@@ -10,7 +10,6 @@ def change_match(match):
 
 def unix_color_to_html(line):
     line = escape(line)
-    line = line.replace(' ', '&nbsp;')
     line = re.sub('\033\[(\d+)m([^\033]+)', change_match, line)
     return line
 

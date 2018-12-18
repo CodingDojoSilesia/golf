@@ -1,11 +1,5 @@
 {% macro terminal(lines) %}
-<div class='terminal'>
-    {% autoescape false %}
-    {% for line in lines %}
-        <span>{{ line }}</span> <br />
-    {% endfor %}
-    {% endautoescape %}
-</div>
+<pre class='terminal'>{% autoescape false %}{% for line in lines %}{{ line }}{% endfor %}{% endautoescape %}</pre>
 <br />
 {% endmacro %}
 

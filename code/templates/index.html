@@ -29,23 +29,13 @@
                 <span class="error">Error!</span> <br />
                 {% if diff %}
                     <span>stdout:</span> <br />
-                    <div class="terminal">
-                        {% autoescape false %}
-                        {% for line in diff %}
-                        <span>{{ line }}</span> <br />
-                        {% endfor %}
-                        {% endautoescape %}
-                    </div> <br />
+                    <pre class="terminal">{% autoescape false %}{% for line in diff %}{{ line }}{% endfor %}{% endautoescape %}</pre>
+                    <br />
                 {% endif %}
                 {% if error_output %}
                     <span>stderr:</span> <br />
-                    <div class="terminal">
-                        {% autoescape false %}
-                        {% for line in error_output %}
-                            <span>{{ line }}</span> <br />
-                        {% endfor %}
-                        {% endautoescape %}
-                    </div> <br />
+                    <pre class="terminal">{% autoescape false %}{% for line in error_output %}{{ line }}{% endfor %}{% endautoescape %}</pre>
+                    <br />
                 {% endif %}
             {% else %}
                 <table>

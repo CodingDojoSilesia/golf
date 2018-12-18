@@ -21,7 +21,7 @@ a { color: #D82C31; }
     color: white;
     background-color: black;
     border: #e46d70 1px solid;
-    white-space: nowrap;
+    white-space: pre;
     overflow: auto;
 }
 
