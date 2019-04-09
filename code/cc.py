@@ -1,4 +1,20 @@
 #!/usr/bin/python3
+from itertools import product
+from random import sample
+
+
+def make_arguments():
+    ww = sample(range(18, 100, 2), 4)
+    hh = sample(range(14, 100, 2), 4)
+    texts = [
+        'for you!', 'xxx',  'x' * 30, 'y' * 30,
+        'coding-dojo-silesia' * 5, '---___---',
+        '(╯°□°╯) ┻━┻', '┻━┻ \(`Д´)/ ┻━┻',
+        'for firemark!', 'aaa',  ' ' * 30, '...' * 10,
+    ]
+    tt = sample(texts, 4)
+
+    return product(tt, ww, hh)
 
 
 def do_it(text, width, height):
