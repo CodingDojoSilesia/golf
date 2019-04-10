@@ -1,9 +1,8 @@
 #!/bin/bash
 set -e
 source .env
-docker run \
-    -it --rm \
-    --link cc_golf_db:db \
+docker-compose run db \
+    --rm \
 	-e PGHOST=db \
 	-e PGDATABASE=$POSTGRES_DB \
 	-e PGUSER=$POSTGRES_USER \
