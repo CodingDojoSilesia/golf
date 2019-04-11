@@ -1,0 +1,46 @@
+$ ./cc.py zigzag,c,9:cross,V,5:zigzag,I,5:cross,e,7:hstrip,e,1,1:cross,X,3:vstrip,o:zigzag,A,7:cross,b,7:cross,K,7        
+                      @@@@@@@@@@@@@@@@                      
+                   @@@              c @@@                   
+                 @@  c             c    c@@                 
+               @@     c           c      c @@               
+             @@        c         c        c  @@             
+            @c          c       c          c   @            
+           @c            c     c            c   @           
+          @c              c   c              c   @          
+         @c                c c                c c @         
+        @     V     V     V     V     V     V     V@        
+       @V     V     V     V     V     V     V     V @       
+      @VVVV VVVVV VVVVV VVVVV VVVVV VVVVV VVVVV VVVVV@      
+     @  V     V     V     V     V     V     V     V   @     
+    @   V     V     V     V     V     V     V     V    @    
+    @     II         II         II         II         I@    
+   @     I  I       I  I       I  I       I  I       I  @   
+  @     I    I     I    I     I    I     I    I     I    @  
+  @I   I      I   I      I   I      I   I      I   I     @  
+  @ I I        I I        I I        I I        I I      @  
+ @ e       e       e       e       e       e       e      @ 
+ @ e       e       e       e       e       e       e      @ 
+@  e       e       e       e       e       e       e       @
+@eeeeee eeeeeee eeeeeee eeeeeee eeeeeee eeeeeee eeeeeee eee@
+@  e       e       e       e       e       e       e       @
+@  e       e       e       e       e       e       e       @
+@  e       e       e       e       e       e       e       @
+@ e e e e e e e e e e e e e e e e e e e e e e e e e e e e e@
+@X   X   X   X   X   X   X   X   X   X   X   X   X   X   X @
+@XX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX@
+@X   X   X   X   X   X   X   X   X   X   X   X   X   X   X @
+@oooooooooooooooooooooooooooooooooooooooooooooooooooooooooo@
+@             AA             AA             AA             @
+@A           A  A           A  A           A  A           A@
+@ A         A    A         A    A         A    A         A @
+ @ A       A      A       A      A       A      A       A @ 
+  @ A     A        A     A        A     A        A     A @  
+  @  A   A          A   A          A   A          A   A  @  
+   @@ A A            A A            A A            A A @@   
+     @     b       b       b       b       b       b  @     
+      @@   b       b       b       b       b       b@@      
+        @@ b       b       b       b       b      @@        
+          @@bbb bbbbbbb bbbbbbb bbbbbbb bbbbbbb @@          
+            @@@    b       b       b       b @@@            
+               @@@@b       b       b     @@@@               
+                   @@@@@@@@@@@@@@@@@@@@@@             

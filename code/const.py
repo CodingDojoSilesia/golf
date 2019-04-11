@@ -18,14 +18,17 @@ SITE_LANGUAGES = [
     ('php', 'PHP7'),
 ]
 
+TITLE = 'Coding Dojo Silesia Code Golf Easter Holiday Edition 2019'
 OUTPUTS = dict(
-    help1=unixnify("howto/help1"),
-    help_text1=unixnify("howto/help_text1"),
-    help_text2=unixnify("howto/help_text2"),
-    help_width1=unixnify("howto/help_width1"),
-    help_width2=unixnify("howto/help_width2"),
-    help_height1=unixnify("howto/help_height1"),
-    help_height2=unixnify("howto/help_height2"),
+    help_fancy_egg=unixnify("howto/help_fancy_egg"),
+    help_basic_egg=unixnify("howto/help_basic_egg"),
+    help_egg=unixnify("howto/help_egg"),
+    help_maskoff=unixnify("howto/help_maskoff"),
+    help_zigzag=unixnify("howto/help_zigzag"),
+    help_maze=unixnify("howto/help_maze"),
+    help_cross=unixnify("howto/help_cross"),
+    help_hstrip=unixnify("howto/help_hstrip"),
+    help_vstrip=unixnify("howto/help_vstrip"),
 )
 
 TOP_HIDE_SCORES = int(os.environ.get('TOP_HIDE_SCORES', '2'))

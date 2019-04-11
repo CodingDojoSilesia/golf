@@ -7,7 +7,7 @@ from time import time
 from flask import request, Flask, render_template, send_from_directory
 
 from unix_colors import unix_color_to_html
-from const import OUTPUTS, SITE_LANGUAGES
+from const import OUTPUTS, SITE_LANGUAGES, TITLE
 from exceptions import CallError
 from logic import execute_cmd
 from db_logic import submit_score, get_heroes
@@ -35,6 +35,7 @@ db.init_app(app)
 def render_index(**kwargs):
     return render_template(
         'index.html',
+        title=TITLE,
         langs=SITE_LANGUAGES,
         heroes=get_heroes(),
         **kwargs
@@ -53,7 +54,7 @@ def show_me_what_you_got():
 
 @app.route('/howto')
 def readme_dude():
-    return render_template('howto.html', **OUTPUTS)
+    return render_template('howto.html', title=TITLE, **OUTPUTS)
 
 
 @app.route('/', methods=['POST'])
