@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 python3 install.py
 mkdir /sys/fs/cgroup/cpu/NSJAIL
 mkdir /sys/fs/cgroup/memory/NSJAIL
