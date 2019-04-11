@@ -32,7 +32,7 @@ def make_arguments():
     samples = sample(ARGS, 15 * 10)
     return [
         [':'.join(samples[i*15:(i+1)*15])]
-        for i in range(15)
+        for i in range(20)
     ]
 
 
