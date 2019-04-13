@@ -1,5 +1,7 @@
 import os
 import logging
+from functools import wraps
+from datetime import datetime
 
 from difflib import unified_diff
 from time import time
@@ -25,6 +27,8 @@ logger.addHandler(handler)
 
 app = Flask("cc-golf")
 
+GOLF_DATE_FORMAT = "%Y-%m-%d"
+
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("FLASK_DB", "not-found")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
@@ -37,22 +41,64 @@ def render_index(**kwargs):
     )
 
 
+def date_restricted(f):
+    """Restricting endpoints based on date of event.
+
+    Decorator takes into account two envs START_DATE and END_DATE,
+    both in ISO format or in Python's datetime nomenclature module "%Y-%m-%d".
+
+    If envs do not exist there is no restriction.
+    """
+
+    @wraps(f)
+    def wrapped(*args, **kwargs):
+        def parse_date(str_date):
+            try:
+                return datetime.strptime(str_date, GOLF_DATE_FORMAT)
+            except (TypeError, ValueError):
+                return None
+
+        today = datetime.today()
+        start_date = parse_date(os.environ.get("START_DATE"))
+        end_date = parse_date(os.environ.get("END_DATE"))
+
+        if start_date and start_date > today:
+            return render_template(
+                "not_today.html",
+                reason=f"Golf has not started yet. Please come back on {start_date.strftime(GOLF_DATE_FORMAT)}.",
+            )
+
+        if end_date and end_date < today:
+            return render_template(
+                "not_today.html",
+                reason=f"Golf has finished on {end_date.strftime(GOLF_DATE_FORMAT)}.",
+            )
+
+        return f(*args, **kwargs)
+
+    return wrapped
+
+
 @app.route("/stats/<path:path>")
+@date_restricted
 def stats(path):
     return send_from_directory("stats", path)
 
 
 @app.route("/", methods=["GET"])
+@date_restricted
 def show_me_what_you_got():
     return render_index()
 
 
 @app.route("/howto")
+@date_restricted
 def readme_dude():
     return render_template("howto.html", title=TITLE, **OUTPUTS)
 
 
 @app.route("/", methods=["POST"])
+@date_restricted
 def execute_order_66():
     code = request.form.get("code", "").replace("\r\n", "\n")
     lang = request.form.get("lang", "")
