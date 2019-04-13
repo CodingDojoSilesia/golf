@@ -108,7 +108,7 @@ def execute_order_66():
     try:
         execute_cmd(code, lang)
     except CallError as exp:
-        diff_time = time() - t0
+        execution_time = time() - t0
         err = exp
         diff = list(
             unified_diff(
@@ -120,13 +120,13 @@ def execute_order_66():
         )
         err_lines = err.error.splitlines(True)
         logger.warning(
-            "Fail[%r, %s] in %0.2f seconds, args: %r", nick, lang, diff_time, exp.args
+            "Fail[%r, %s] in %0.2f seconds, args: %r", nick, lang, execution_time, exp.args
         )
         add_score_log(
             fail=True,
             nick=nick,
             lang=lang,
-            seconds=diff_time,
+            execution_time=execution_time,
             code=code,
         )
         return (
@@ -141,18 +141,19 @@ def execute_order_66():
             ),
             400,
         )
-    diff_time = time() - t0
+    execution_time = time() - t0
+
     submit_score(
         nick=nick,
         lang=lang,
         code=code,
-        seconds=diff_time,
+        execution_time=execution_time,
     )
     add_score_log(
         fail=False,
         nick=nick,
         lang=lang,
-        seconds=diff_time,
         code=code,
+        execution_time=execution_time,
     )
     return render_index(code=code, lang=lang, nick=nick, is_done=True)

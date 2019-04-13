@@ -9,6 +9,15 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
+def make_time_column():
+    return Column(
+        DateTime,
+        nullable=False,
+        default=datetime.utcnow,
+        onupdate=datetime.utcnow,
+    )
+
+
 class Hero(db.Model):
     __tablename__ = 'heroes'
     __table_args__ = (
@@ -20,13 +29,12 @@ class Hero(db.Model):
     nick = Column(String, nullable=False)
     lang = Column(String, nullable=False)
     score = Column(Integer, nullable=False)
-    time = Column(DateTime, nullable=False)
+    time = make_time_column()
 
     def __init__(self, nick, lang, score=0):
         self.nick = nick
         self.lang = lang
         self.score = score
-        self.time = datetime.utcnow()
 
 
 class ScoreLog(db.Model):
@@ -40,14 +48,13 @@ class ScoreLog(db.Model):
     nick = Column(String, nullable=False)
     lang = Column(String, nullable=False)
     score = Column(Integer, nullable=False)
-    seconds = Column(Float, nullable=False)
+    execution_time = Column(Float, nullable=False)
     fail = Column(Boolean, nullable=False)
-    time = Column(DateTime, nullable=False)
+    time = make_time_column()
 
-    def __init__(self, nick, lang, fail, seconds, score):
+    def __init__(self, nick, lang, fail, execution_time, score):
         self.nick = nick
         self.lang = lang
         self.score = score
         self.fail = fail
-        self.seconds = seconds
-        self.time = datetime.utcnow()
+        self.execution_time = execution_time
