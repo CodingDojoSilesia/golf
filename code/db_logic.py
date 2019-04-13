@@ -10,7 +10,7 @@ logger = getLogger('app')
 def get_heroes():
     scores = list(
         Hero.query
-        .order_by(Hero.score)
+        .order_by(Hero.score, Hero.time)
         .limit(15)
         .all()
     )
