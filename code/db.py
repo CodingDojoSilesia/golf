@@ -17,10 +17,10 @@ class Hero(db.Model):
         Index('hero_lang_key', 'lang'),
     )
 
-    nick = Column(String)
-    lang = Column(String)
-    score = Column(Integer)
-    time = Column(DateTime)
+    nick = Column(String, nullable=False)
+    lang = Column(String, nullable=False)
+    score = Column(Integer, nullable=False)
+    time = Column(DateTime, nullable=False)
 
     def __init__(self, nick, lang, score=0):
         self.nick = nick
@@ -37,12 +37,12 @@ class ScoreLog(db.Model):
     )
 
     pk = Column(Integer, primary_key=True)
-    nick = Column(String)
-    lang = Column(String)
-    score = Column(Integer)
-    seconds = Column(Float)
-    fail = Column(Boolean)
-    time = Column(DateTime)
+    nick = Column(String, nullable=False)
+    lang = Column(String, nullable=False)
+    score = Column(Integer, nullable=False)
+    seconds = Column(Float, nullable=False)
+    fail = Column(Boolean, nullable=False)
+    time = Column(DateTime, nullable=False)
 
     def __init__(self, nick, lang, fail, seconds, score):
         self.nick = nick
