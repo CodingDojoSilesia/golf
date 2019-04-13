@@ -1,0 +1,6 @@
+$ ./cc.py maskoff:cross,Q,5   
+  Q     Q     Q     Q     Q     Q     Q     Q     Q     Q   
+  Q     Q     Q     Q     Q     Q     Q     Q     Q     Q   
+QQQQQ QQQQQ QQQQQ QQQQQ QQQQQ QQQQQ QQQQQ QQQQQ QQQQQ QQQQQ 
+  Q     Q     Q     Q     Q     Q     Q     Q     Q     Q   
+  Q     Q     Q     Q     Q     Q     Q     Q     Q     Q  

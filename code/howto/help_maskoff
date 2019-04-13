@@ -1,0 +1,9 @@
+$ ./cc.py maskoff:empty,3:zigzag,W,5
+                                                            
+                                                            
+                                                            
+W         WW         WW         WW         WW         WW    
+ W       W  W       W  W       W  W       W  W       W  W   
+  W     W    W     W    W     W    W     W    W     W    W  
+   W   W      W   W      W   W      W   W      W   W      W 
+    W W        W W        W W        W W        W W        W

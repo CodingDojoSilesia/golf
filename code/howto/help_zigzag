@@ -1,0 +1,6 @@
+$ ./cc.py maskoff:zigzag,Q,5        
+Q         QQ         QQ         QQ         QQ         QQ    
+ Q       Q  Q       Q  Q       Q  Q       Q  Q       Q  Q   
+  Q     Q    Q     Q    Q     Q    Q     Q    Q     Q    Q  
+   Q   Q      Q   Q      Q   Q      Q   Q      Q   Q      Q 
+    Q Q        Q Q        Q Q        Q Q        Q Q        Q

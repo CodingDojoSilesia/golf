@@ -1,0 +1,6 @@
+$ ./cc.py maskoff:maze,Q,5,5
+Q    QQQQQQ    QQQQQQ    QQQQQQ    QQQQQQ    QQQQQQ    QQQQQ
+Q    Q    Q    Q    Q    Q    Q    Q    Q    Q    Q    Q    
+Q    Q    Q    Q    Q    Q    Q    Q    Q    Q    Q    Q    
+Q    Q    Q    Q    Q    Q    Q    Q    Q    Q    Q    Q    
+QQQQQQ    QQQQQQ    QQQQQQ    QQQQQQ    QQQQQQ    QQQQQQ

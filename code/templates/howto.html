@@ -5,43 +5,94 @@
 
 <html>
     <head>
-        <title>Coding Dojo Silesia Code Golf 2018 HOWTO</title>
+        <title>{{title}} HOWTO</title>
         <link rel="stylesheet" type="text/css" href="stats/css.css" />
     </head>
     <body class="sld">
-        <h1>Coding Dojo Silesia Code Golf 2018 HOWTO</h1>
+        <h1>{{title}} HOWTO</h1>
         <h2>Rules</h2>
         <ol>
             <li>Result must be printed in <strong>STDOUT</strong></li>
-            <li>Program gets 3 arguments (argv) in order: text, width (int) and height (int)</li>
-            <li>Text argument is not blank</li>
-            <li>Text has always one line (without newline character)</li>
-            <li>Minimum width of box is 18 chars</li>
-            <li>Minimum height (with bow too) of box is 14 lines</li>
-            <li>Width and height are always even</li>
+            <li>Program gets 1 argument (argv)</li>
+            <li>Width of output is always 60 + newline char (\n)</li>
+            <li>Height (number of lines) of output is always 45</li>
+            <li>Empty on right side of line must be filled with spaces</li>
+            <li>Numbers are always odd (even numbers generate ugly ascii art)</li>
             <li><strong>Each</strong> line must have newline char (\n) on the end</li>
             <li><strong>Each</strong> line doesn't have additional blank chars on the end</li>
         </ol>
-        <h2>Examples</h2>
+        <h2>Description</h2>
         <p>
-            Task are simple - write the code to draw gift box with text
-            {{ terminal(help1) }}
-            (ASCII art is from <a href='https://asciiart.website/index.php?art=holiday/christmas/other'>https://asciiart.website/index.php?art=holiday/christmas/other</a>)
+            Task is simple - write the code to draw easter egg:
+            {{ terminal(help_fancy_egg) }}
         </p>
         <p>
-            First argument is a text
-            {{ terminal(help_text1) }}
-            {{ terminal(help_text2) }}
+            First argument is a domain small language (DSL) to draw pattern on the egg.
         </p>
         <p>
-            Second argument is a width of gift box
-            {{ terminal(help_width1) }}
-            {{ terminal(help_width2) }}
+            Format of argument is: <br />
+            <pre class="terminal">command1,arg1:command2,arg1,arg2,…,argN:command3,arg1,arg2:…:commandN,arg1</pre>
+        </p>
+        <h2>Commands</h2>
+        <p> 
+            maskoff command is not required in task, but is very helpful to show you how to draw on the egg. 
+            More info <a href="#maskoff">here.</a>
+         </p>
+        <p>
+            <h3>zigzag</h3>
+            <code>
+                zigzag:<strong>CHAR</strong>,<strong>SIZE</strong>
+            </code>
+            {{ terminal(help_zigzag) }}
         </p>
         <p>
-            Third argument is a height of gift box
-            {{ terminal(help_height1) }}
-            {{ terminal(help_height2) }}
+            <h3>maze</h3>
+            <code>
+                maze:<strong>CHAR</strong>,<strong>VSIZE</strong>,<strong>HSIZE</strong>
+            </code>
+            {{ terminal(help_maze) }}
+        </p>
+        <p>
+            <h3>cross</h3>
+            <code>
+                cross:<strong>CHAR</strong>,<strong>SIZE</strong>
+            </code>
+            {{ terminal(help_cross) }}
+        </p>
+        <p>
+            <h3>hstrip</h3>
+            <code>
+                hstrip:<strong>CHAR</strong>,<strong>HSIZE</strong>,<strong>HSIZE</strong>
+            </code>
+            {{ terminal(help_hstrip) }}
+        </p>
+        <p>
+            <h3>vstrip</h3>
+            <code>
+                vstrip:<strong>CHAR</strong>
+            </code>
+            {{ terminal(help_vstrip) }}
+        </p>
+        <p>
+            <h3>empty</h3>
+            <code>
+                vstrip:<strong>HSIZE</strong>
+            </code>
+            <br />
+            just draw N empty (ekhm! filled with spaces!) lines
+        </p>
+        <h2><a id="maskoff"></a>Mask of the egg</h2>
+        <p>
+            To help you with a task I have made <strong>maskoff</strong> command to show you how draw patterns:
+            <br />
+            With mask:
+            {{ terminal(help_basic_egg) }}
+            Without mask:
+            {{ terminal(help_maskoff) }}
+        </p>
+        <p>
+            Egg have always a constant shape
+            {{ terminal(help_egg) }}
         </p>
     </body>
 </html>

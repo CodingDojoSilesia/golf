@@ -6,20 +6,17 @@ services:
     read_only: true
     ports:
      - "5111:5000"
-    environment:
-     - FLASK_APP=app.py
-     - FLASK_DB=postgresql://golf:socek@db/golf
+    env_file:
+     - ./.env
     stop_signal: SIGINT
     privileged: true
   db:
     image: postgres
     restart: always
-    environment:
-      - POSTGRES_PASSWORD=socek
-      - POSTGRES_USER=golf
-      - POSTGRES_DB=golf
+    env_file:
+     - ./.env
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - golf_pgdata:/var/lib/postgresql/data
 
 volumes:
-    pgdata:
+    golf_pgdata:
