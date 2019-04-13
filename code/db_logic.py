@@ -1,7 +1,8 @@
 from logging import getLogger
+from datetime import datetime
 
 from const import TOP_HIDE_SCORES
-from db import db, Hero
+from db import db, Hero, ScoreLog
 
 logger = getLogger('app')
 
@@ -34,6 +35,7 @@ def submit_score(nick, lang, code, seconds=0.0):
             return
         hero.score = new_score
         hero.lang = lang
+        hero.time = datetime.utcnow()
 
     logger.info(
         'New Record[%r, %s] in %0.2f seconds, from %s to %s',
@@ -42,3 +44,17 @@ def submit_score(nick, lang, code, seconds=0.0):
 
     db.session.add(hero)
     db.session.commit()
+
+
+def add_score_log(nick, lang, code, fail=False, seconds=0.0):
+    log = ScoreLog(
+        nick=nick,
+        lang=lang,
+        score=len(code),
+        fail=fail,
+        seconds=seconds,
+    )
+
+    db.session.add(log)
+    db.session.commit()
+

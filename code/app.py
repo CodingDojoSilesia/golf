@@ -12,7 +12,7 @@ from unix_colors import unix_color_to_html
 from const import OUTPUTS, SITE_LANGUAGES, TITLE
 from exceptions import CallError
 from logic import execute_cmd
-from db_logic import submit_score, get_heroes
+from db_logic import submit_score, get_heroes, add_score_log
 from db import db
 
 logger = logging.getLogger("app")
@@ -122,6 +122,13 @@ def execute_order_66():
         logger.warning(
             "Fail[%r, %s] in %0.2f seconds, args: %r", nick, lang, diff_time, exp.args
         )
+        add_score_log(
+            fail=True,
+            nick=nick,
+            lang=lang,
+            seconds=diff_time,
+            code=code,
+        )
         return (
             render_index(
                 code=code,
@@ -134,7 +141,18 @@ def execute_order_66():
             ),
             400,
         )
-
     diff_time = time() - t0
-    submit_score(nick, lang, code, diff_time)
+    submit_score(
+        nick=nick,
+        lang=lang,
+        code=code,
+        seconds=diff_time,
+    )
+    add_score_log(
+        fail=False,
+        nick=nick,
+        lang=lang,
+        seconds=diff_time,
+        code=code,
+    )
     return render_index(code=code, lang=lang, nick=nick, is_done=True)
