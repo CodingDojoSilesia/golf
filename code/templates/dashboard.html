@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <title>{{title}} DASHBOARD</title>
+        <link rel="stylesheet" type="text/css" href="/stats/css.css" />
+    </head>
+    <body>
+        <h1>DASHBOARD</h1>
+        <div class="sld">
+            <table class="border">
+                <caption>HIGHSCORE</caption>
+                <thead>
+                    <tr>
+                        <th>index</th>
+                        <th>nick</th>
+                        <th>lang</th>
+                        <th>score</th>
+                        <th>time of submit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for hero in heroes %}
+                    <tr>
+                        <th class="index">{{ loop.index }}</th>
+                        <td>{{ hero.nick }}</td>
+                        <th>{{ hero.lang }}</th>
+                        <td class="numb">{{ hero.score }}</td>
+                        <td class="numb">{{ hero.time | datetime }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="pis pis-border">
+            <table class="border">
+                <caption>LOGS</caption>
+                <thead>
+                    <tr>
+                        <th>nick</th>
+                        <th>lang</th>
+                        <th>score</th>
+                        <th>fail?</th>
+                        <th>execution time</th>
+                        <th>time of submit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in score_logs %}
+                    <tr class="{% if log.fail %}fail-row{% endif %}">
+                        <td>{{ log.nick }}</td>
+                        <th>{{ log.lang }}</th>
+                        <td class="numb">{{ log.score if not log.fail else '-' }}</td>
+                        <th>{{ log.fail | yes_no }}</th>
+                        <td class="numb">{{ log.execution_time | round(2) }}s</td>
+                        <td class="numb">{{ log.time | datetime }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

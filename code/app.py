@@ -5,14 +5,18 @@ from datetime import datetime
 
 from difflib import unified_diff
 from time import time
+from math import ceil
 
 from flask import request, Flask, render_template, send_from_directory
 
 from unix_colors import unix_color_to_html
-from const import OUTPUTS, SITE_LANGUAGES, TITLE
+from const import (
+    OUTPUTS, SITE_LANGUAGES, TITLE, 
+    DASHBOARD_TOKEN, DATETIME_DASHBOARD_FORMAT,
+)
 from exceptions import CallError
 from logic import execute_cmd
-from db_logic import submit_score, get_heroes, add_score_log
+from db_logic import submit_score, get_heroes, add_score_log, get_score_logs
 from db import db
 
 logger = logging.getLogger("app")
@@ -35,6 +39,16 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("FLASK_DB", "not-found")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
+
+
+@app.template_filter('datetime')
+def datetime_filter(datetime_obj):
+    return datetime_obj.strftime(DATETIME_DASHBOARD_FORMAT)
+
+
+@app.template_filter('yes_no')
+def yes_no_filter(boolean):
+    return 'yes' if boolean else 'no'
 
 
 def render_index(**kwargs):
@@ -142,7 +156,6 @@ def execute_order_66():
             400,
         )
     execution_time = time() - t0
-
     submit_score(
         nick=nick,
         lang=lang,
@@ -157,3 +170,30 @@ def execute_order_66():
         execution_time=execution_time,
     )
     return render_index(code=code, lang=lang, nick=nick, is_done=True)
+
+
+@app.route('/<token>/dashboard', methods=['GET'])
+def dashboard(token):
+    if DASHBOARD_TOKEN is None or token != DASHBOARD_TOKEN:
+        return '', 403
+
+    try:
+        page = int(request.args.get('page', '1'))
+    except ValueError:
+        page = 1
+    page = max(page, 1)
+
+    heroes = get_heroes(without_limit=True, hide_scores=False)
+    score_logs, total_score_logs = get_score_logs(
+        page=1,
+        limit=60,
+    )
+    total_pages = ceil(total_score_logs / 60)
+
+    return render_template(
+        'dashboard.html', 
+        title=TITLE,
+        heroes=heroes, 
+        score_logs=score_logs, 
+        total_pages=total_score_logs,
+    )
