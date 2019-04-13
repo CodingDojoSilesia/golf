@@ -15,7 +15,7 @@
             <li>Result must be printed in <strong>STDOUT</strong></li>
             <li>Program gets 1 argument (argv)</li>
             <li>Width of output is always 60 + newline char (\n)</li>
-            <li>Width of output is always 45</li>
+            <li>Height (number of lines) of output is always 45</li>
             <li>Empty on right side of line must be filled with spaces</li>
             <li>Numbers are always odd (even numbers generate ugly ascii art)</li>
             <li><strong>Each</strong> line must have newline char (\n) on the end</li>
@@ -32,21 +32,12 @@
         <p>
             Format of argument is: <br />
             <pre class="terminal">command1,arg1:command2,arg1,arg2,…,argN:command3,arg1,arg2:…:commandN,arg1</pre>
-            Don't be afraid! List of commands is below on this page
-        </p>
-        <p>
-            To help you with a task I have made <strong>maskoff</strong> command to show you how draw patterns:
-            <br />
-            With mask:
-            {{ terminal(help_basic_egg) }}
-            Without mask:
-            {{ terminal(help_maskoff) }}
-        </p>
-        <p>
-            Egg have always a constant shape
-            {{ terminal(help_egg) }}
         </p>
         <h2>Commands</h2>
+        <p> 
+            maskoff command is not required in task, but is very helpful to show you how to draw on the egg. 
+            More info <a href="#maskoff">here.</a>
+         </p>
         <p>
             <h3>zigzag</h3>
             <code>
@@ -90,6 +81,18 @@
             <br />
             just draw N empty (ekhm! filled with spaces!) lines
         </p>
-        <p> maskoff command is not required </p>
+        <h2><a id="maskoff"></a>Mask of the egg</h2>
+        <p>
+            To help you with a task I have made <strong>maskoff</strong> command to show you how draw patterns:
+            <br />
+            With mask:
+            {{ terminal(help_basic_egg) }}
+            Without mask:
+            {{ terminal(help_maskoff) }}
+        </p>
+        <p>
+            Egg have always a constant shape
+            {{ terminal(help_egg) }}
+        </p>
     </body>
 </html>
