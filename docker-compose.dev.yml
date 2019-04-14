@@ -1,0 +1,25 @@
+version: '3'
+services:
+  app:
+    build: .
+    restart: always
+    read_only: true
+    ports:
+     - "5111:5000"
+    env_file:
+     - ./.env
+    stop_signal: SIGINT
+    privileged: true
+    command: ./dev_me.sh
+    volumes:
+      - ./code:/code
+  db:
+    image: postgres
+    restart: always
+    env_file:
+     - ./.env
+    volumes:
+      - golf_pgdata:/var/lib/postgresql/data
+
+volumes:
+    golf_pgdata:
