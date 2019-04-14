@@ -14,28 +14,28 @@
         <ol>
             <li>Result must be printed in <strong>STDOUT</strong></li>
             <li>Program gets 1 argument (argv)</li>
-            <li>Width of output is always 60 + newline char (\n)</li>
-            <li>Height (number of lines) of output is always 45</li>
-            <li>Empty on right side of line must be filled with spaces</li>
+            <li>Width of the output is always 60 + newline char (\n)</li>
+            <li>Height of the output (number of lines) is always 45</li>
+            <li>Empty space on right side of line must be filled with space characters</li>
             <li>Numbers are always odd (even numbers generate ugly ascii art)</li>
-            <li><strong>Each</strong> line must have newline char (\n) on the end</li>
-            <li><strong>Each</strong> line doesn't have additional blank chars on the end</li>
+            <li><strong>Each</strong> line must have newline char (\n) at the end</li>
+            <li>The lines must not have any characters after newline char (\n)</li>
         </ol>
         <h2>Description</h2>
         <p>
-            Task is simple - write the code to draw easter egg:
+            The task is simple - write the code to draw an easter egg:
             {{ terminal(help_fancy_egg) }}
         </p>
         <p>
-            First argument is a domain small language (DSL) to draw pattern on the egg.
+            First argument is a domain small language (DSL) to draw a pattern on the egg.
         </p>
         <p>
-            Format of argument is: <br />
+            Format of the argument is: <br />
             <pre class="terminal">command1,arg1:command2,arg1,arg2,…,argN:command3,arg1,arg2:…:commandN,arg1</pre>
         </p>
         <h2>Commands</h2>
-        <p> 
-            maskoff command is not required in task, but is very helpful to show you how to draw on the egg. 
+        <p>
+            maskoff command is not required in the task, but is very helpful to show you how to draw on the egg.
             More info <a href="#maskoff">here.</a>
          </p>
         <p>
@@ -76,14 +76,14 @@
         <p>
             <h3>empty</h3>
             <code>
-                vstrip:<strong>HSIZE</strong>
+                empty:<strong>HSIZE</strong>
             </code>
             <br />
             just draw N empty (ekhm! filled with spaces!) lines
         </p>
         <h2><a id="maskoff"></a>Mask of the egg</h2>
         <p>
-            To help you with a task I have made <strong>maskoff</strong> command to show you how draw patterns:
+            To help you with a task I have made <strong>maskoff</strong> command to show you how to draw patterns:
             <br />
             With mask:
             {{ terminal(help_basic_egg) }}
@@ -91,7 +91,7 @@
             {{ terminal(help_maskoff) }}
         </p>
         <p>
-            Egg have always a constant shape
+            The shape of the egg always remains the same
             {{ terminal(help_egg) }}
         </p>
     </body>
