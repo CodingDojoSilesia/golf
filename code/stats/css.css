@@ -35,6 +35,7 @@ a { color: #D82C31; }
 .pis { width: 400px; float: left; padding-left: 3px;}
 .pis-border { border-left: 1px solid black; }
 .sld { width: 650px; float: left; padding-right: 3px;}
+.center { width: 100%; text-align: center; }
 
 @media screen and (min-width: 1300px; max-width: 1500px) {
     .pis { width: 650px; }
@@ -57,6 +58,7 @@ table.border th, table.border td { border: 1px solid #c1c1c1; }
 td.numb { text-align: right; }
 th.index { width: 20px; }
 tr.fail-row { color: #D82C31; }
+tr.small { font-size: 9pt; }
 
 input[type="text"], select, option {
     font-family: monospace;

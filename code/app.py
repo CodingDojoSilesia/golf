@@ -182,18 +182,21 @@ def dashboard(token):
     except ValueError:
         page = 1
     page = max(page, 1)
+    limit = 40
 
     heroes = get_heroes(without_limit=True, hide_scores=False)
     score_logs, total_score_logs = get_score_logs(
-        page=1,
-        limit=60,
+        page=page,
+        limit=limit,
     )
-    total_pages = ceil(total_score_logs / 60)
+    total_pages = max(ceil(total_score_logs / limit), 1)
+    page = min(page, total_pages)
 
     return render_template(
         'dashboard.html', 
         title=TITLE,
         heroes=heroes, 
         score_logs=score_logs, 
-        total_pages=total_score_logs,
+        total_pages=total_pages,
+        page=page,
     )

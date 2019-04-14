@@ -1,3 +1,11 @@
+{% macro pagination() %}
+<div class="center">
+    {% if page > 1  %} <a href="?page={{page - 1}}">&lt;&lt;</a> {% endif %}
+    Current page: {{page}},
+    total pages: {{total_pages}}
+    {% if total_pages > page  %} <a href="?page={{page + 1}}">&gt;&gt;</a> {% endif %}
+</div>
+{% endmacro %}
 <html>
     <head>
         <title>{{title}} DASHBOARD</title>
@@ -14,7 +22,7 @@
                         <th>nick</th>
                         <th>lang</th>
                         <th>score</th>
-                        <th>time of submit</th>
+                        <th>time of submit (UTC)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,13 +42,16 @@
             <table class="border">
                 <caption>LOGS</caption>
                 <thead>
+                    <tr class="small">
+                        <td colspan="6">{{ pagination() }}</td>
+                    </tr>
                     <tr>
                         <th>nick</th>
                         <th>lang</th>
                         <th>score</th>
                         <th>fail?</th>
                         <th>execution time</th>
-                        <th>time of submit</th>
+                        <th>time of submit (UTC)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,6 +66,11 @@
                     </tr>
                     {% endfor %}
                 </tbody>
+                <tfoot>
+                    <tr class="small">
+                        <td colspan="6">{{ pagination() }}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </body>
