@@ -28,6 +28,8 @@ logger.addHandler(handler)
 app = Flask("cc-golf")
 
 GOLF_DATE_FORMAT = "%Y-%m-%d"
+GOLF_START_DATE = datetime.strptime(os.environ.get("START_DATE"), GOLF_DATE_FORMAT)
+GOLF_END_DATE = datetime.strptime(os.environ.get("END_DATE"), GOLF_DATE_FORMAT)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("FLASK_DB", "not-found")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -52,26 +54,18 @@ def date_restricted(f):
 
     @wraps(f)
     def wrapped(*args, **kwargs):
-        def parse_date(str_date):
-            try:
-                return datetime.strptime(str_date, GOLF_DATE_FORMAT)
-            except (TypeError, ValueError):
-                return None
-
         today = datetime.today()
-        start_date = parse_date(os.environ.get("START_DATE"))
-        end_date = parse_date(os.environ.get("END_DATE"))
 
-        if start_date and start_date > today:
+        if GOLF_START_DATE > today:
             return render_template(
                 "not_today.html",
-                reason=f"Golf has not started yet. Please come back on {start_date.strftime(GOLF_DATE_FORMAT)}.",
+                reason=f"Golf has not started yet. Please come back on {GOLF_START_DATE.strftime(GOLF_DATE_FORMAT)}.",
             )
 
-        if end_date and end_date < today:
+        if GOLF_END_DATE < today:
             return render_template(
                 "not_today.html",
-                reason=f"Golf has finished on {end_date.strftime(GOLF_DATE_FORMAT)}.",
+                reason=f"Golf has finished on {GOLF_END_DATE.strftime(GOLF_DATE_FORMAT)}.",
             )
 
         return f(*args, **kwargs)
