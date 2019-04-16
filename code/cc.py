@@ -1,38 +1,64 @@
 #!/usr/bin/python3
 from math import ceil, sqrt
+from itertools import chain
 
-from random import sample
+from random import sample, shuffle
 from string import ascii_letters
 
 cc = ascii_letters
-rr = range(1, 10, 2)
+rr = range(1, 15, 2)
 
 WIDTH = 60  # height = 45
-ARGS = [
-    f'{name},{c},{x}'
-    for c in cc
-    for x in rr
-    for name in ['zigzag', 'cross']
-] + [
-    f'{name},{c},{x},{y}'
-    for c in cc
-    for x in range(1, 4, 2)
-    for y in range(1, 4, 2)
-    for name in ['maze', 'hstrip']
-] + [
-    f'empty,{x}'
-    for x in rr
-] + [
-    f'vstrip,{c}'
-    for c in cc
-]
+ARGS = {
+    'zigzag': [
+        f'zigzag,{c},{x}'
+        for c in cc
+        for x in rr
+    ],
+    'cross': [
+        f'cross,{c},{x}'
+        for c in cc
+        for x in rr
+    ],
+    'maze': [
+        f'maze,{c},{x},{y}'
+        for c in cc
+        for x in rr
+        for y in rr
+    ],
+    'hstrip': [
+        f'hstrip,{c},{x},{y}'
+        for c in cc
+        for x in rr
+        for y in rr
+    ],
+    'empty': [
+        f'empty,{x}'
+        for x in rr
+        for _ in range(2)
+    ],
+    'vstrip': [
+        f'vstrip,{c}'
+        for c in cc
+    ]
+}
+
+
+COUNT_TESTS = 20
+ARGS_PER_TEST = 5
 
 
 def make_arguments():
-    samples = sample(ARGS, 15 * 10)
+    total = ceil((ARGS_PER_TEST * COUNT_TESTS) / len(ARGS))
+    samples = chain.from_iterable(
+        sample(args, min(len(args), total))
+        for args in ARGS.values()
+    )
+    samples = list(samples)
+    shuffle(samples)
     return [
-        [':'.join(samples[i*15:(i+1)*15])]
-        for i in range(20)
+        [':'.join(samples[i:i + ARGS_PER_TEST])]
+        for i in range(0, len(samples), ARGS_PER_TEST)
     ]
 
 
