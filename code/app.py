@@ -11,7 +11,7 @@ from flask import request, Flask, render_template, send_from_directory
 
 from unix_colors import unix_color_to_html
 from const import (
-    OUTPUTS, SITE_LANGUAGES, TITLE, 
+    OUTPUTS, SITE_LANGUAGES, TITLE,
     DASHBOARD_TOKEN, DATETIME_DASHBOARD_FORMAT,
 )
 from exceptions import CallError
@@ -53,7 +53,12 @@ def yes_no_filter(boolean):
 
 def render_index(**kwargs):
     return render_template(
-        "index.html", title=TITLE, langs=SITE_LANGUAGES, heroes=get_heroes(), **kwargs
+        "index.html",
+        title=TITLE,
+        langs=SITE_LANGUAGES,
+        heroes=get_heroes(),
+        end_date=GOLF_END_DATE,
+        **kwargs
     )
 
 
@@ -193,10 +198,10 @@ def dashboard(token):
     page = min(page, total_pages)
 
     return render_template(
-        'dashboard.html', 
+        'dashboard.html',
         title=TITLE,
-        heroes=heroes, 
-        score_logs=score_logs, 
+        heroes=heroes,
+        score_logs=score_logs,
         total_pages=total_pages,
         page=page,
     )

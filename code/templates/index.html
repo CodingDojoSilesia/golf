@@ -5,6 +5,14 @@
     </head>
     <body>
         <h1>{{title}}</h1>
+        <h2>Deadline
+            <span id="cd-start">in</span>
+            <span id="cd-days">X</span>d
+            <span id="cd-hours">X</span>h
+            <span id="cd-minutes">X</span>m
+            <span id="cd-seconds">X</span>s
+            <span id="cd-end"></span>
+        </h2>
         <div class='sld'>
             Howto? <a href="/howto">click here</a> <br />
             <form method="POST">
@@ -13,7 +21,7 @@
                     {% for key, lang_name in langs %}
                     <option value="{{key}}" {% if key == lang %}selected{% endif %}>{{ lang_name }}</option>
                     {% endfor %}
-                </select> 
+                </select>
                 Nick <input type='text' name='nick' required maxlength=10 value='{{ nick }}' />
                 <input type='submit' value='Submit' />
                 <br/>
@@ -58,5 +66,9 @@
             and <a href='https://github.com/dmazur'>dmazur</a>.
             Server runs on nsjail, uwsgi, python, flask, jinja2 and love &lt;3
         </small>
+        <script type="text/javascript" src="/stats/countdown.js"></script>
+        <script type="text/javascript">
+            initCountdown('{{end_date}}');
+        </script>
     </body>
 </html>
