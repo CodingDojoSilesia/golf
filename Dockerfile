@@ -6,7 +6,7 @@ RUN apk update && apk add --no-cache \
         php7 py3-psycopg2 gcc \
         ruby ruby-dev \
         bash \
-        musl-dev linux-headers iptables
+        musl-dev linux-headers iptables tzdata
 
 RUN apk add --no-cache \
         git make bison flex protobuf protobuf-dev \
@@ -23,8 +23,12 @@ RUN apk add --no-cache \
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt
 
+RUN cp /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
+RUN echo "Europe/Warsaw" >  /etc/timezone
+RUN date
+
 #security
-RUN apk del gcc g++
+RUN apk del tzdata gcc g++
 
 ENV FLASK_APP=app.py
 COPY code /code
