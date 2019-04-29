@@ -1,7 +1,7 @@
 import os
 import logging
 from functools import wraps
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from difflib import unified_diff
 from time import time
@@ -57,7 +57,7 @@ def render_index(**kwargs):
         title=TITLE,
         langs=SITE_LANGUAGES,
         heroes=get_heroes(),
-        end_date=GOLF_END_DATE,
+        deadline=GOLF_END_DATE + timedelta(days=1),
         **kwargs
     )
 
