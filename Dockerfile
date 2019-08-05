@@ -1,34 +1,44 @@
-FROM alpine:3.7
+FROM ubuntu:18.04
 
-RUN adduser socek -u 4242 -g 4242 -D -H
-RUN apk update && apk add --no-cache \
-        python3 python3-dev nodejs \
-        php7 py3-psycopg2 gcc \
-        ruby ruby-dev \
-        bash \
-        musl-dev linux-headers iptables tzdata
+RUN groupadd socek --gid 4242
+RUN useradd socek \
+    --uid 4242 --gid 4242 \
+    --no-create-home \
+    --shell /bin/false
+RUN apt-get -y update && apt-get install -y \
+    autoconf \
+    bison \
+    flex \
+    gcc \
+    g++ \
+    git \
+    libprotobuf-dev \
+    libtool \
+    make \
+    pkg-config \
+    protobuf-compiler \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN apk add --no-cache \
-        git make bison flex protobuf protobuf-dev \
-        g++ pkgconf autoconf libtool \
-        bsd-compat-headers \
-    && \
-    git clone --depth=1 --branch=2.8 https://github.com/google/nsjail.git /nsjail && \
+RUN git clone --depth=1 --branch=2.8 https://github.com/google/nsjail.git /nsjail && \
     cd /nsjail && \
-    sed -i '1s/^/#define ST_RELATIME 4096\n/' mnt.cc && \
     make && \
     cp /nsjail/nsjail /bin && \
     rm -rf /nsjail
 
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get -y update && apt-get install -y \
+    python3 python3-dev python3-psycopg2 python3-pip \
+    nodejs \
+    php \ 
+    ruby ruby-dev \
+    bash \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt
 
-RUN cp /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
-RUN echo "Europe/Warsaw" >  /etc/timezone
-RUN date
-
-#security
-RUN apk del tzdata gcc g++
+#security!
+RUN apt-get purge -y gcc g++ git make
 
 ENV FLASK_APP=app.py
 COPY code /code
