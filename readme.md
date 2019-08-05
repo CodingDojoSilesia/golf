@@ -22,7 +22,7 @@ Go to [Howto](#howto)
 
 ### Dashboard
 
-![dashboard](docs/main.png)
+![dashboard](docs/dashboard.png)
 
 
 ## Why?
