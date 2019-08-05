@@ -29,7 +29,7 @@ formatter = logging.Formatter(
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
-app = Flask("cc-golf")
+app = Flask("code-golf")
 
 GOLF_DATE_FORMAT = "%Y-%m-%d"
 GOLF_START_DATE = datetime.strptime(os.environ.get("START_DATE"), GOLF_DATE_FORMAT)

@@ -1,19 +1,25 @@
+import importlib.util
+import os
 from subprocess import Popen, PIPE, TimeoutExpired
 from logging import getLogger
 
-from const import TIMEOUT, LANGUAGES
+from const import TIMEOUT, LANGUAGES, TASK_PATH
 from exceptions import CallError
 from cc import make_arguments, do_it
 
-CHECK_FUNC = do_it
 logger = getLogger('app')
+
+# dynamic file loading
+task_spec = importlib.util.spec_from_file_location('task', os.path.join(TASK_PATH, 'task.py'))
+task_module = importlib.util.module_from_spec(task_spec)
+task_spec.loader.exec_module(task_module)
 
 
 def execute_cmd(code, lang):
     cmd = LANGUAGES.get(lang)
     if cmd is None:
         raise CallError(err='wrong language')
-    args_list = make_arguments()
+    args_list = task_module.make_arguments()
     for args in args_list:
         assert_call(cmd, code, args)
 
@@ -43,7 +49,7 @@ def assert_call(cmd_args, code, args):
         '-Q',
         '--',
     ] + cmd_args
-    correct = CHECK_FUNC(*args)
+    correct = task_module.do_it(*args)
 
     process = None
     try:
