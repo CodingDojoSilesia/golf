@@ -8,6 +8,8 @@ services:
      - "5111:5000"
     env_file:
      - ./.env
+    volumes:
+     - ./tasks:/tasks
     stop_signal: SIGINT
     privileged: true
   db:

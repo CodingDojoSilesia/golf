@@ -22,10 +22,11 @@ SITE_LANGUAGES = [
 
 TITLE = os.environ.get('TITLE', 'Coding Dojo Silesia Code Golf')
 TASK_PATH = os.environ.get('TASK_PATH', '/tasks/helloworld')
-HOWTO_PATH = join_path(TASK_PATH, 'howto')
-OUTPUTS = {
-    key: unixnify(join_path(HOWTO_PATH, key))
-    for key in glob(join_path(HOWTO_PATH, '*'))
+HOWTO_CODES_PATH = join_path(TASK_PATH, 'howto')
+HOWTO_PATH = join_path(TASK_PATH, 'howto.html')
+HOWTO_OUTPUTS = {
+    key: unixnify(join_path(HOWTO_CODES_PATH, key))
+    for key in glob(join_path(HOWTO_CODES_PATH, '*'))
 }
 TOP_HIDE_SCORES = int(os.environ.get('TOP_HIDE_SCORES', '2'))
 MAX_SCORES_ON_MAIN_PAGE = int(os.environ.get('MAX_SCORES_ON_MAIN_PAGE', '15'))

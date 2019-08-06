@@ -5,7 +5,6 @@ from logging import getLogger
 
 from const import TIMEOUT, LANGUAGES, TASK_PATH
 from exceptions import CallError
-from cc import make_arguments, do_it
 
 logger = getLogger('app')
 

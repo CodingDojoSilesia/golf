@@ -8,11 +8,13 @@ from time import time
 from math import ceil
 
 from flask import request, Flask, render_template, send_from_directory
+from jinja2 import Template
 
 from unix_colors import unix_color_to_html
 from const import (
-    OUTPUTS, SITE_LANGUAGES, TITLE,
+    HOWTO_OUTPUTS, SITE_LANGUAGES, TITLE,
     DASHBOARD_TOKEN, DATETIME_DASHBOARD_FORMAT,
+    HOWTO_PATH,
 )
 from exceptions import CallError
 from logic import execute_cmd
@@ -39,6 +41,10 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("FLASK_DB", "not-found")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
+
+with open(HOWTO_PATH) as fp:
+    howto_template = Template(fp.read())
+    howto_content = howto_template.render(title=TITLE, **HOWTO_OUTPUTS)
 
 
 @app.template_filter('datetime')
@@ -107,7 +113,7 @@ def show_me_what_you_got():
 @app.route("/howto")
 @date_restricted
 def readme_dude():
-    return render_template("howto.html", title=TITLE, **OUTPUTS)
+    return render_template("howto.html", title=TITLE, howto=howto_content)
 
 
 @app.route("/", methods=["POST"])
