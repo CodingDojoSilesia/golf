@@ -1,0 +1,31 @@
+{% from "macros.html" import terminal %}
+<h2>Rules</h2>
+<ol>
+    <li>Result must be printed in <strong>STDOUT</strong></li>
+    <li>Program gets from 1 to X argument (argv) (in this case: 2)</li>
+    <li>To nice: <strong>Each</strong> line must have newline char (\n) at the end</li>
+    <li>To nice: The lines must not have any characters after newline char (\n)</li>
+</ol>
+
+<h2>Description</h2>
+<p>
+    is a normal HTML 
+    - you can put <strong>anything what you <font color=pink> want </font> </strong>
+</p>
+<p>
+    Is possible to use &lt;pre&gt; tag to show code
+    <pre class="terminal">command1,arg1:command2,arg1,arg2,…,argN:command3,arg1,arg2:…:commandN,arg1</pre>
+</p>
+<p>
+    Or using macro <pre>terminal</pre>  
+    (codes are in codes dir)
+    {{ terminal(codes.example1) }}
+</p>
+<p>
+    Is possible to use bigger examples like lorem ipsum
+    {{ terminal(codes.example2) }}
+</p>
+<p>
+    Also, terminal can show 16 colors from unix terminal:
+    {{ terminal(codes.example3) }}
+</p>

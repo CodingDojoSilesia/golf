@@ -1,4 +1,3 @@
-import importlib.util
 import os
 from subprocess import Popen, PIPE, TimeoutExpired
 from logging import getLogger
@@ -6,7 +5,6 @@ from logging import getLogger
 from const import TIMEOUT, LANGUAGES, TASK_MODULE_PATH
 from exceptions import CallError
 import task_loader
-
 
 logger = getLogger('app')
 

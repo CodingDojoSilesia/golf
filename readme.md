@@ -76,6 +76,7 @@ docker-compose stop app && docker-compose up --build -d app
 Whole configuration is based on ENVs - see example.env file
 
 * `FLASK_DB` - URL to database - see `SQLALCHEMY_DATABASE_URI` in https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/
+* `TASK` - Path to task (please see tasks directory)
 * `POSTGRES_XXX` - used to postgres database - if you have another database (not from docker compose) then you can omit this envs
 * `START_DATE` - UTC date when will be started
 * `END_DATE` - UTC date when golf will be finished
