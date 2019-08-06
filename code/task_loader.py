@@ -42,3 +42,5 @@ def load_module(task_path):
     task_spec = importlib.util.spec_from_file_location('task', task_path)
     task_module = importlib.util.module_from_spec(task_spec)
     task_spec.loader.exec_module(task_module)
+
+    return task_module
