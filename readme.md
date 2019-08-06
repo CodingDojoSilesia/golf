@@ -12,6 +12,8 @@ Go to [Howto](#howto)
 * highscore table
 * supports javascript, ruby, python and php
 * little dashboard to show full highscore and log of tries (failed or not)
+* UNIX COLORS!!!
+* Diff and Stderr console to show warnings after comparing of code
 
 ## OMG SCREENSHOTS
 
