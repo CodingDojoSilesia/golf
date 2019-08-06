@@ -36,7 +36,7 @@ def make_arguments():
     ]
 
 
-def do_it(argv):
+def do_it(*argv):
     """
         this function execute arguments (from make_arguments)
         and returns string who will be compared with 
@@ -49,7 +49,7 @@ def do_it(argv):
     """
     count = int(argv[0])
     char = argv[1]
-    return arg * count
+    return char * count + '\n'
 
 
 if __name__ == "__main__":
@@ -57,5 +57,5 @@ if __name__ == "__main__":
     if len(argv) != 4:
         print('usage:', __file__, 'COUNT', 'CHAR')
         exit(-1)
-    result = do_it(argv[1:])
+    result = do_it(*argv[1:])
     stdout.write(result)
