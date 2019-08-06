@@ -1,8 +1,6 @@
-import os
 from os.path import join as join_path
-from glob import glob
+from os import environ
 
-from unix_colors import unixnify
 
 LANGUAGES = {
     'js': ['/usr/bin/node', '-'],
@@ -20,16 +18,11 @@ SITE_LANGUAGES = [
     ('php', 'PHP7'),
 ]
 
-TITLE = os.environ.get('TITLE', 'Coding Dojo Silesia Code Golf')
-TASK_PATH = os.environ.get('TASK_PATH', '/tasks/helloworld')
-HOWTO_CODES_PATH = join_path(TASK_PATH, 'howto')
-HOWTO_PATH = join_path(TASK_PATH, 'howto.html')
-HOWTO_OUTPUTS = {
-    key: unixnify(join_path(HOWTO_CODES_PATH, key))
-    for key in glob(join_path(HOWTO_CODES_PATH, '*'))
-}
-TOP_HIDE_SCORES = int(os.environ.get('TOP_HIDE_SCORES', '2'))
-MAX_SCORES_ON_MAIN_PAGE = int(os.environ.get('MAX_SCORES_ON_MAIN_PAGE', '15'))
-TIMEOUT = int(os.environ.get('TIMEOUT', '2'))
-DASHBOARD_TOKEN = os.environ.get('DASHBOARD_TOKEN')
+TITLE = environ.get('TITLE', 'Coding Dojo Silesia Code Golf')
+TASK_PATH = environ.get('TASK_PATH', '/tasks/helloworld')
+TASK_MODULE_PATH = join_path(TASK_PATH, 'task.py')
+TOP_HIDE_SCORES = int(environ.get('TOP_HIDE_SCORES', '2'))
+MAX_SCORES_ON_MAIN_PAGE = int(environ.get('MAX_SCORES_ON_MAIN_PAGE', '15'))
+TIMEOUT = int(environ.get('TIMEOUT', '2'))
+DASHBOARD_TOKEN = environ.get('DASHBOARD_TOKEN')
 DATETIME_DASHBOARD_FORMAT = '%Y-%m-%d %H:%M:%S'

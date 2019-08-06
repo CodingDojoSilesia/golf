@@ -1,8 +1,4 @@
-{% macro terminal(lines) %}
-<pre class='terminal'>{% autoescape false %}{% for line in lines %}{{ line }}{% endfor %}{% endautoescape %}</pre>
-<br />
-{% endmacro %}
-
+{% from "macros.html" import terminal %}
 <h2>Rules</h2>
 <ol>
     <li>Result must be printed in <strong>STDOUT</strong></li>
@@ -18,7 +14,7 @@
 <h2>Description</h2>
 <p>
     The task is simple - write the code to draw an easter egg:
-    {{ terminal(help_fancy_egg) }}
+    {{ terminal(codes.help_fancy_egg) }}
 </p>
 <p>
     First argument is a domain small language (DSL) to draw a pattern on the egg.
@@ -38,35 +34,35 @@
     <code>
         zigzag:<strong>CHAR</strong>,<strong>SIZE</strong>
     </code>
-    {{ terminal(help_zigzag) }}
+    {{ terminal(codes.help_zigzag) }}
 </p>
 <p>
     <h3>maze</h3>
     <code>
         maze:<strong>CHAR</strong>,<strong>HSIZE</strong>,<strong>VSIZE</strong>
     </code>
-    {{ terminal(help_maze) }}
+    {{ terminal(codes.help_maze) }}
 </p>
 <p>
     <h3>cross</h3>
     <code>
         cross:<strong>CHAR</strong>,<strong>SIZE</strong>
     </code>
-    {{ terminal(help_cross) }}
+    {{ terminal(codes.help_cross) }}
 </p>
 <p>
     <h3>hstrip</h3>
     <code>
         hstrip:<strong>CHAR</strong>,<strong>HSIZE</strong>,<strong>SHIFT</strong>
     </code>
-    {{ terminal(help_hstrip) }}
+    {{ terminal(codes.help_hstrip) }}
 </p>
 <p>
     <h3>vstrip</h3>
     <code>
         vstrip:<strong>CHAR</strong>
     </code>
-    {{ terminal(help_vstrip) }}
+    {{ terminal(codes.help_vstrip) }}
 </p>
 <p>
     <h3>empty</h3>
@@ -82,11 +78,11 @@
     To help you with a task I have made <strong>maskoff</strong> command to show you how to draw patterns:
     <br />
     With mask:
-    {{ terminal(help_basic_egg) }}
+    {{ terminal(codes.help_basic_egg) }}
     Without mask:
-    {{ terminal(help_maskoff) }}
+    {{ terminal(codes.help_maskoff) }}
 </p>
 <p>
     The shape of the egg always remains the same
-    {{ terminal(help_egg) }}
+    {{ terminal(codes.help_egg) }}
 </p>

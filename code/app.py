@@ -8,25 +8,26 @@ from time import time
 from math import ceil
 
 from flask import request, Flask, render_template, send_from_directory
-from jinja2 import Template
 
 from unix_colors import unix_color_to_html
 from const import (
-    HOWTO_OUTPUTS, SITE_LANGUAGES, TITLE,
+    SITE_LANGUAGES, TITLE,
     DASHBOARD_TOKEN, DATETIME_DASHBOARD_FORMAT,
-    HOWTO_PATH,
+    TASK_PATH,
 )
 from exceptions import CallError
 from logic import execute_cmd
 from db_logic import submit_score, get_heroes, add_score_log, get_score_logs
 from db import db
+import task_loader
 
 logger = logging.getLogger("app")
 logger.setLevel(logging.INFO)
 handler = logging.StreamHandler()
 handler.setLevel(logging.INFO)
 formatter = logging.Formatter(
-    fmt="APP :: %(asctime)s %(levelname)-8s %(message)s", datefmt="%Y-%m-%d %H:%M:%S"
+    fmt="APP :: %(asctime)s %(levelname)-8s %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
 )
 handler.setFormatter(formatter)
 logger.addHandler(handler)
@@ -42,9 +43,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
 
-with open(HOWTO_PATH) as fp:
-    howto_template = Template(fp.read())
-    howto_content = howto_template.render(title=TITLE, **HOWTO_OUTPUTS)
+howto_content = task_loader.load_howto(TASK_PATH, title=TITLE)
 
 
 @app.template_filter('datetime')

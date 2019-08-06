@@ -3,15 +3,17 @@ import os
 from subprocess import Popen, PIPE, TimeoutExpired
 from logging import getLogger
 
-from const import TIMEOUT, LANGUAGES, TASK_PATH
+from const import TIMEOUT, LANGUAGES, TASK_MODULE_PATH
 from exceptions import CallError
+import task_loader
+
 
 logger = getLogger('app')
 
 # dynamic file loading
-task_spec = importlib.util.spec_from_file_location('task', os.path.join(TASK_PATH, 'task.py'))
-task_module = importlib.util.module_from_spec(task_spec)
-task_spec.loader.exec_module(task_module)
+task_module = task_loader.load_module(
+    task_path=TASK_MODULE_PATH,
+)
 
 
 def execute_cmd(code, lang):
