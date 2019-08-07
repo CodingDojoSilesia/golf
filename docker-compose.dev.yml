@@ -13,6 +13,7 @@ services:
     command: ./dev_me.sh
     volumes:
       - ./code:/code
+      - ./tasks:/tasks
   db:
     image: postgres
     restart: always

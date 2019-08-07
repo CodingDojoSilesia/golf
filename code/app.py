@@ -11,25 +11,28 @@ from flask import request, Flask, render_template, send_from_directory
 
 from unix_colors import unix_color_to_html
 from const import (
-    OUTPUTS, SITE_LANGUAGES, TITLE,
+    SITE_LANGUAGES, TITLE,
     DASHBOARD_TOKEN, DATETIME_DASHBOARD_FORMAT,
+    TASK_PATH,
 )
 from exceptions import CallError
 from logic import execute_cmd
 from db_logic import submit_score, get_heroes, add_score_log, get_score_logs
 from db import db
+import task_loader
 
 logger = logging.getLogger("app")
 logger.setLevel(logging.INFO)
 handler = logging.StreamHandler()
 handler.setLevel(logging.INFO)
 formatter = logging.Formatter(
-    fmt="APP :: %(asctime)s %(levelname)-8s %(message)s", datefmt="%Y-%m-%d %H:%M:%S"
+    fmt="APP :: %(asctime)s %(levelname)-8s %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
 )
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
-app = Flask("cc-golf")
+app = Flask("code-golf")
 
 GOLF_DATE_FORMAT = "%Y-%m-%d"
 GOLF_START_DATE = datetime.strptime(os.environ.get("START_DATE"), GOLF_DATE_FORMAT)
@@ -39,6 +42,8 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("FLASK_DB", "not-found")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
+
+howto_content = task_loader.load_howto(TASK_PATH, title=TITLE)
 
 
 @app.template_filter('datetime')
@@ -107,7 +112,7 @@ def show_me_what_you_got():
 @app.route("/howto")
 @date_restricted
 def readme_dude():
-    return render_template("howto.html", title=TITLE, **OUTPUTS)
+    return render_template("howto.html", title=TITLE, howto=howto_content)
 
 
 @app.route("/", methods=["POST"])
