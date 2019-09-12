@@ -68,6 +68,10 @@ def do_it(args):
     return drawer.buf
 
 
+def validate_code(code):
+    return code
+
+
 class Drawer:
     width: int
     height: int

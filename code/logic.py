@@ -15,6 +15,11 @@ task_module = task_loader.load_module(
 
 
 def execute_cmd(code, lang):
+    try:
+        code = task_module.validate_code(code)
+    except ValueError as exp:
+        raise CallError(err='Problem with code: %s' % exp)
+
     cmd = LANGUAGES.get(lang)
     if cmd is None:
         raise CallError(err='wrong language')
