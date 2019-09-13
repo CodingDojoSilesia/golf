@@ -52,6 +52,23 @@ def do_it(*argv):
     return char * count + '\n'
 
 
+def validate_code(code):
+    """
+        this function validate and transform code
+        from textarea input (a player's code).
+        This function must returns code (modified or not)
+        or raise ValueError exception
+
+        :param code: executable code
+        :type code: str
+        :return: executable code
+        :rtype: str
+    """
+    if code == "DAWID":
+        raise ValueError('code has a wrong person')
+    return code
+
+
 if __name__ == "__main__":
     from sys import argv, stdout
     if len(argv) != 4:
